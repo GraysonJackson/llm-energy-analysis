@@ -1,0 +1,104 @@
+{
+  "prompts": [
+    {
+      "id": "code_gen_01",
+      "category": "code_generation",
+      "prompt": "Write a Python function that implements binary search on a sorted list. Include docstring and type hints."
+    },
+    {
+      "id": "code_gen_02",
+      "category": "code_generation",
+      "prompt": "Create a Python class for a simple banking account with deposit, withdraw, and check_balance methods. Include proper error handling."
+    },
+    {
+      "id": "code_gen_03",
+      "category": "code_generation",
+      "prompt": "Write a SQL query to find the top 10 customers by total purchase amount from tables 'customers' and 'orders'."
+    },
+    {
+      "id": "summarize_01",
+      "category": "text_summarization",
+      "prompt": "Summarize the following in 2-3 sentences: Machine learning is a subset of artificial intelligence that focuses on developing systems that can learn from and make decisions based on data. Unlike traditional programming where rules are explicitly coded, machine learning algorithms build models based on sample data to make predictions or decisions without being explicitly programmed to perform the task."
+    },
+    {
+      "id": "summarize_02",
+      "category": "text_summarization",
+      "prompt": "Provide a concise summary of cybersecurity best practices for small businesses, focusing on the three most critical measures they should implement immediately."
+    },
+    {
+      "id": "summarize_03",
+      "category": "text_summarization",
+      "prompt": "Summarize the key differences between symmetric and asymmetric encryption in 100 words or less."
+    },
+    {
+      "id": "qa_01",
+      "category": "question_answering",
+      "prompt": "What is the difference between a stack and a queue data structure? Provide examples of when each should be used."
+    },
+    {
+      "id": "qa_02",
+      "category": "question_answering",
+      "prompt": "Explain how public key cryptography works. What problem does it solve compared to symmetric encryption?"
+    },
+    {
+      "id": "qa_03",
+      "category": "question_answering",
+      "prompt": "What are the main components of a neural network and how do they work together during training?"
+    },
+    {
+      "id": "qa_04",
+      "category": "question_answering",
+      "prompt": "What is the CAP theorem in distributed systems? Explain with a practical example."
+    },
+    {
+      "id": "creative_01",
+      "category": "creative_writing",
+      "prompt": "Write a short story (150-200 words) about a cybersecurity analyst who discovers an unusual pattern in network traffic."
+    },
+    {
+      "id": "creative_02",
+      "category": "creative_writing",
+      "prompt": "Compose a haiku about artificial intelligence and another about cloud computing."
+    },
+    {
+      "id": "creative_03",
+      "category": "creative_writing",
+      "prompt": "Write a compelling product description for a new smart home security system that uses AI for threat detection."
+    },
+    {
+      "id": "tech_doc_01",
+      "category": "technical_documentation",
+      "prompt": "Write API documentation for a REST endpoint that creates a new user account. Include the HTTP method, request body format, response codes, and example requests/responses."
+    },
+    {
+      "id": "tech_doc_02",
+      "category": "technical_documentation",
+      "prompt": "Create a troubleshooting guide for common database connection errors in a web application. Include symptoms, causes, and solutions."
+    },
+    {
+      "id": "tech_doc_03",
+      "category": "technical_documentation",
+      "prompt": "Write installation instructions for setting up a Python virtual environment and installing packages from a requirements.txt file on Windows."
+    },
+    {
+      "id": "reasoning_01",
+      "category": "question_answering",
+      "prompt": "A server processes 100 requests per second. Each request requires 50ms of CPU time. If you have 8 CPU cores, what is the theoretical maximum throughput? Explain your reasoning."
+    },
+    {
+      "id": "reasoning_02",
+      "category": "question_answering",
+      "prompt": "If a ransomware attack encrypted files at a rate of 1GB per minute and was detected after 30 minutes, how much data was affected? If the backup system can restore at 500MB per minute, how long will full recovery take?"
+    },
+    {
+      "id": "analysis_01",
+      "category": "question_answering",
+      "prompt": "Compare the trade-offs between using a microservices architecture versus a monolithic architecture for a medium-sized e-commerce application. Consider scalability, complexity, and deployment."
+    },
+    {
+      "id": "analysis_02",
+      "category": "question_answering",
+      "prompt": "Analyze the security implications of storing sensitive data in cloud services versus on-premise servers. What are the key considerations for each approach?"
+    }
+  ]
+}

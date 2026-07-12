@@ -1,0 +1,97 @@
+# LLM Energy Analysis Configuration
+
+# Shelly Smart Plug Settings
+shelly:
+  ip_address: "192.168.1.100"  # Change to your Shelly plug's IP
+  polling_interval: 1.0  # seconds between power readings
+  timeout: 5  # HTTP request timeout in seconds
+
+# Ollama Settings
+ollama:
+  host: "http://localhost:11434"
+  models:
+    - "llama3"
+    - "llama3:70b"
+    - "mistral"
+  timeout: 300  # Maximum generation time in seconds
+  temperature: 0.7
+  top_p: 0.9
+
+# Cloud API Settings
+cloud:
+  openai:
+    enabled: true
+    models:
+      - "gpt-4"
+      - "gpt-3.5-turbo"
+    max_tokens: 1000
+    temperature: 0.7
+  
+  anthropic:
+    enabled: true
+    models:
+      - "claude-3-opus-20240229"
+      - "claude-3-sonnet-20240229"
+    max_tokens: 1000
+    temperature: 0.7
+
+# Energy Attribution (from provider sustainability reports)
+# These values are estimates based on published data
+energy_attribution:
+  openai:
+    # OpenAI reports ~0.0006 kWh per 1000 tokens (GPT-3.5)
+    # ~0.0015 kWh per 1000 tokens (GPT-4)
+    joules_per_token:
+      gpt-3.5-turbo: 2.16  # 0.0006 kWh * 3600 J/Wh
+      gpt-4: 5.4  # 0.0015 kWh * 3600 J/Wh
+    pue: 1.2  # Data center Power Usage Effectiveness
+  
+  anthropic:
+    # Anthropic uses similar infrastructure
+    joules_per_token:
+      claude-3-opus-20240229: 5.0
+      claude-3-sonnet-20240229: 3.0
+    pue: 1.2
+
+# Benchmark Settings
+benchmark:
+  idle_baseline_duration: 60  # seconds to measure idle power
+  warmup_queries: 3  # number of warmup queries before measurement
+  cooling_period: 30  # seconds between tests
+  repetitions: 3  # number of times to repeat each prompt
+  
+  # Temperature monitoring
+  temperature_warning_threshold: 85  # Celsius
+  temperature_critical_threshold: 90  # Celsius
+  
+  # Prompt categories to test
+  categories:
+    - "code_generation"
+    - "text_summarization"
+    - "question_answering"
+    - "creative_writing"
+    - "technical_documentation"
+
+# Output Settings
+output:
+  results_dir: "data/results"
+  graphs_dir: "data/graphs"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  csv_encoding: "utf-8"
+  
+  # Graph settings
+  graph_dpi: 300  # Publication quality
+  graph_format: "png"  # png, pdf, svg
+
+# Dashboard Settings
+dashboard:
+  host: "localhost"
+  port: 5000
+  debug: false
+  auto_refresh_interval: 5  # seconds
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "data/benchmark.log"
