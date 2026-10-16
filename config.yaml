@@ -1,3 +1,8 @@
+# LEGACY SCAFFOLD CONFIGURATION
+# Historical model IDs, prices and energy factors below are not validated research inputs.
+# See docs/implementation_guide.md and docs/setup_guide.md before running.
+# docs/examples/research_plan.example.yaml is a target schema, not accepted by this runner.
+
 # LLM Energy Analysis Configuration
 
 # Shelly Smart Plug Settings

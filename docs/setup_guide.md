@@ -1,377 +1,116 @@
-# Setup Guide
+# Setup guide
 
-## LLM Energy Analysis - Quick Start
+The repository currently contains a benchmark scaffold. Follow the P0 fixes and acceptance tests in the [implementation guide](implementation_guide.md) before collecting research measurements. Setup success is not measurement validation.
 
-This guide will walk you through setting up the complete benchmark system.
+## 1 Inspect existing code
 
----
+Clone/open the repository and work from its root:
 
-## Prerequisites
+~~~bash
+python -m venv .venv
+~~~
 
-- **Operating System**: Windows 11 (Linux also supported)
-- **Python**: Version 3.10 or higher
-- **Hardware**: System with dedicated GPU (NVIDIA RTX 5060 Ti recommended)
-- **Network**: Shelly Smart Plug on same network
-- **Internet**: For cloud API testing
+Linux activation:
 
----
+~~~bash
+source .venv/bin/activate
+~~~
 
-## Step 1: Install Python Dependencies
+PowerShell activation:
 
-Open a terminal in the project directory and run:
+~~~powershell
+.venv\Scripts\Activate.ps1
+~~~
 
-```bash
-pip install -r requirements.txt
-```
+Then:
 
-This installs all required packages:
-- Ollama Python client
-- OpenAI and Anthropic API clients
-- Data analysis libraries (pandas, numpy)
-- Visualization libraries (matplotlib, seaborn)
-- Flask for dashboard
-- Supporting utilities
+~~~bash
+python -m pip install -r requirements.txt
+python -m compileall -q src reports
+~~~
 
----
+The dependency file has broad minimum versions. Record a tested inference environment lock. Create a separate training environment; the current requirements do not provide a complete ROCm/PyTorch/PEFT stack.
 
-## Step 2: Install and Configure Ollama
+## 2 Inventory hardware
 
-### Install Ollama
+Record CPU/GPU/motherboard, BIOS, RAM layout/speed, SSD capacity/free space, PSU, cooling, OS/kernel and power profile.
 
-1. Download from: https://ollama.ai
-2. Run the installer
-3. Verify installation:
-   ```bash
-   ollama --version
-   ```
+Existing baseline is Ryzen 5 5600G/RTX 3070/32GB/WD_BLACK SN770 1TB on B550 Phantom Gaming 4/ac with BIOS P2.10. The proposed R9700 and 5900XT are not installed/validated. Check exact board firmware prerequisites and component compatibility before replacing parts.
 
-### Pull Models
+Capture a baseline before changing multiple components if practical. Otherwise report a whole-system comparison.
 
-Download the models you want to test:
+## 3 Choose a supported GPU stack
 
-```bash
-ollama pull llama3
-ollama pull mistral
-```
+For AMD inference, use the current Ollama hardware list and ROCm Radeon matrix for the exact OS/card. R9700 Linux support is listed in Ollama's current documentation; that does not establish identical Windows or training support.
 
-**Recommended for RTX 5060 Ti (16GB VRAM)**:
-- `llama3` (8B parameters)
-- `mistral` (7B parameters)
-- `llama3:70b` (if you want to test larger models, may run slower)
+Verify actual discrete-GPU execution and detect CPU/iGPU fallback. Save runtime/driver/device versions and a small workload trace. Do not copy an arbitrary CUDA install command into the AMD environment.
 
-### Verify Ollama
+For training, independently validate one forward/backward/optimizer step, memory use, save/reload and the quantization backend before a long job.
 
-```bash
+Sources:
+- https://docs.ollama.com/gpu
+- https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/compatibility/compatibilityrad/native_linux/native_linux_compatibility.html
+
+## 4 Select exact models
+
+Use current available artifacts and licenses; record exact digest/revision, tokenizer, template and quantization. Original core candidates are Llama 3 8B and Mistral 7B.
+
+Inspect local inventory:
+
+~~~bash
+ollama --version
 ollama list
-```
+~~~
 
-You should see your downloaded models listed.
+Select exact variants after memory checks. Do not blindly pull a 70B model from the legacy config. The 32GB card's capacity does not guarantee arbitrary model/context/training fit.
 
----
+## 5 Meter and network
 
-## Step 3: Configure Shelly Smart Plug
+Identify actual device model/firmware. Verify a read-only endpoint and payload for that generation; Gen1 /status assumptions do not validate Gen4. For a compatible modern Shelly candidate inspect the documented Switch.GetStatus RPC and apower field.
 
-### Find Your Plug's IP Address
+Use a placeholder such as METER_HOST in local instructions; keep real network details private. Confirm a permitted network path between collector and meter. If that cannot work, choose a locally logging measurement arrangement.
 
-1. Open the Shelly app on your phone
-2. Find your smart plug
-3. Note the IP address (e.g., 192.168.1.100)
+Verify polling/update interval, latency, coverage, stable loads, cumulative energy where supported and uncertainty. Keep only the workstation behind the measured outlet. Do not use relay-control calls during experiments.
 
-### Test Connection
+## 6 Local configuration and credentials
 
-Open a web browser and navigate to:
-```
-http://YOUR_PLUG_IP/status
-```
+The current config.yaml is historical. Before a local-only inspection set both cloud provider enabled values to false and select a small available local model. The example under docs/examples is a proposed future schema, not a drop-in runtime replacement.
 
-You should see JSON data with power readings.
+Copy the credential template only when needed:
 
-### Update Configuration
+~~~bash
+cp .env.example .env
+~~~
 
-Edit `config.yaml`:
+PowerShell equivalent:
 
-```yaml
-shelly:
-  ip_address: "192.168.1.100"  # Replace with your plug's IP
-```
+~~~powershell
+Copy-Item .env.example .env
+~~~
 
----
+Keep real keys in the local environment. The legacy .env.example CONFIG_PATH setting is not an implemented config override in the current main runner. Read the implementation before assuming environment variables or flags are honored.
 
-## Step 4: Configure Cloud APIs (Optional)
+Validate active cloud endpoint availability and current separate input/output pricing before enabling paid calls. Remove unsupported energy factors from research interpretation rather than using them as facts.
 
-### Get API Keys
+## 7 Validate before collecting
 
-**OpenAI**:
-1. Go to: https://platform.openai.com/api-keys
-2. Create a new API key
-3. Copy the key (starts with `sk-`)
+Implement and pass synthetic energy, adapter, token-count, completion-state, run-store and budget tests. Run one complete request with actual output/tokens and a bracketing power trace, then independently recompute energy.
 
-**Anthropic**:
-1. Go to: https://console.anthropic.com/settings/keys
-2. Create a new API key
-3. Copy the key (starts with `sk-ant-`)
+A missing meter permits functional debugging only. Do not interpret existing exported zero-energy values as findings.
 
-### Add Keys to Environment
+## 8 Legacy commands
 
-1. Copy the example file:
-   ```bash
-   copy .env.example .env
-   ```
+Existing entry points:
 
-2. Edit `.env` and add your keys:
-   ```
-   OPENAI_API_KEY=sk-your-openai-key-here
-   ANTHROPIC_API_KEY=sk-ant-your-anthropic-key-here
-   ```
-
-3. Save the file
-
-**Note**: Cloud APIs are optional. You can run local-only benchmarks without them.
-
----
-
-## Step 5: Configure Models and Settings
-
-Edit `config.yaml` to customize:
-
-### Ollama Models
-
-```yaml
-ollama:
-  models:
-    - "llama3"
-    - "mistral"
-```
-
-Add or remove models as needed.
-
-### Cloud Models
-
-```yaml
-cloud:
-  openai:
-    enabled: true  # Set to false to disable
-    models:
-      - "gpt-4"
-      - "gpt-3.5-turbo"
-```
-
-### Benchmark Settings
-
-```yaml
-benchmark:
-  idle_baseline_duration: 60  # Seconds for baseline measurement
-  warmup_queries: 3           # Warmup queries before measurement
-  cooling_period: 30          # Seconds between tests
-  repetitions: 3              # Times to repeat each prompt
-```
-
-Adjust based on your needs:
-- **Quick test**: `repetitions: 1`, `cooling_period: 10`
-- **Full research**: `repetitions: 3`, `cooling_period: 30`
-
----
-
-## Step 6: Test Connections
-
-Before running the full benchmark, test all connections:
-
-```bash
+~~~bash
 python src/test_connection.py
-```
-
-This will verify:
-- ✅ Shelly Smart Plug connection
-- ✅ Ollama availability and models
-- ✅ Cloud API authentication
-
-Fix any issues before proceeding.
-
----
-
-## Step 7: Run Your First Benchmark
-
-### Option 1: Full Benchmark (Recommended)
-
-```bash
 python src/run_benchmark.py
-```
-
-This will:
-1. Measure baseline power (60 seconds)
-2. Run local LLM tests with power monitoring
-3. Run cloud API tests
-4. Save results to CSV files
-
-**Duration**: 30-60 minutes depending on models and repetitions
-
-### Option 2: Quick Test
-
-1. Edit `config.yaml`:
-   ```yaml
-   benchmark:
-     repetitions: 1
-     cooling_period: 10
-   ```
-
-2. Reduce prompts (edit `data/prompts.json` to include only first 5 prompts)
-
-3. Run: `python src/run_benchmark.py`
-
-**Duration**: 10-15 minutes
-
----
-
-## Step 8: Analyze Results
-
-### View Analysis Summary
-
-```bash
 python src/analyze_results.py
-```
-
-This displays:
-- Token statistics
-- Energy consumption metrics
-- Cost analysis (for cloud)
-- Comparative analysis (local vs cloud)
-
-### Generate Graphs
-
-```bash
 python src/generate_graphs.py
-```
+python src/dashboard.py
+python reports/generate_report.py
+~~~
 
-Creates publication-quality visualizations in `data/graphs/`:
-- Energy comparison charts
-- Cost analysis
-- Performance metrics
-- Privacy-energy tradeoff
+These can perform hardware/API calls and are not unit tests. Some paths still contain the known bugs documented in the guide. Keep dashboard bound to localhost and stop it for controlled runs unless its overhead is intentionally included.
 
----
-
-## Common Issues and Solutions
-
-### Issue: Ollama Connection Failed
-
-**Solution**:
-```bash
-# Check if Ollama is running
-ollama list
-
-# Restart Ollama (Windows)
-# Close Ollama from system tray and restart
-
-# Verify port
-netstat -an | findstr "11434"
-```
-
-### Issue: Shelly Plug Not Found
-
-**Solution**:
-1. Verify IP address in config.yaml
-2. Ensure plug is on same network
-3. Check firewall settings
-4. Try ping: `ping YOUR_PLUG_IP`
-5. Access via browser: `http://YOUR_PLUG_IP/status`
-
-### Issue: Cloud API Authentication Failed
-
-**Solution**:
-1. Verify API keys in `.env` file
-2. Check for extra spaces or quotes
-3. Ensure keys are active (not revoked)
-4. Check API credit balance
-5. Review rate limits
-
-### Issue: Out of Memory Error
-
-**Solution**:
-1. Use smaller models (8B instead of 70B)
-2. Reduce max_tokens in config.yaml
-3. Close other GPU-intensive applications
-4. Check VRAM usage: `nvidia-smi`
-
-### Issue: Thermal Throttling
-
-**Solution**:
-1. Improve system cooling
-2. Increase cooling_period in config.yaml
-3. Monitor temperatures during tests
-4. Clean dust from fans/radiators
-
----
-
-## Project Structure
-
-```
-Grant 2026/
-├── README.md                   # Project overview
-├── requirements.txt            # Python dependencies
-├── config.yaml                 # Main configuration
-├── .env                        # API keys (create from .env.example)
-│
-├── src/                        # Source code
-│   ├── power_monitor.py       # Shelly plug integration
-│   ├── local_llm_benchmark.py # Ollama benchmarks
-│   ├── cloud_benchmark.py     # Cloud API benchmarks
-│   ├── run_benchmark.py       # Main orchestrator
-│   ├── analyze_results.py     # Data analysis
-│   ├── generate_graphs.py     # Visualization
-│   └── test_connection.py     # Connection testing
-│
-├── data/
-│   ├── prompts.json           # Test prompts
-│   ├── results/               # CSV output files
-│   └── graphs/                # Generated visualizations
-│
-└── docs/
-    ├── methodology.md         # Research methodology
-    └── setup_guide.md         # This file
-```
-
----
-
-## Next Steps
-
-1. **Customize Prompts**: Edit `data/prompts.json` for your specific use cases
-2. **Adjust Models**: Add/remove models in `config.yaml`
-3. **Run Experiments**: Execute benchmarks with different configurations
-4. **Analyze Data**: Use the analysis and visualization tools
-5. **Document Findings**: Create your grant report using the generated graphs
-
----
-
-## Support
-
-For issues or questions:
-- Check the troubleshooting section above
-- Review `docs/methodology.md` for detailed explanations
-- Examine the code comments in `src/` files
-- Test individual components with their standalone scripts
-
----
-
-## Tips for Best Results
-
-1. **Thermal Management**: Ensure adequate cooling before long benchmark runs
-2. **Background Processes**: Close unnecessary applications during testing
-3. **Power Stability**: Use a stable power source (avoid battery operation)
-4. **Multiple Runs**: Run benchmarks multiple times for consistency
-5. **Document Everything**: Take notes on any anomalies or special conditions
-6. **Backup Data**: Keep copies of CSV results before rerunning tests
-
----
-
-## Research Workflow
-
-1. **Setup** → Test connections → Configure settings
-2. **Baseline** → Measure idle power → Document conditions
-3. **Local Tests** → Run warmups → Execute benchmarks → Cool down
-4. **Cloud Tests** → Run parallel tests → Track costs
-5. **Analysis** → Load data → Generate statistics → Create graphs
-6. **Reporting** → Use graphs → Document methodology → Present findings
-
----
-
-Good luck with your research! 🚀
+Future planner/training commands must be documented only after implementation. No training CLI exists in the audited code.

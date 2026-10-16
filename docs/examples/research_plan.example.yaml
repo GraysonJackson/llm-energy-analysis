@@ -1,0 +1,110 @@
+# PLANNING CONTRACT ONLY. Current run_benchmark.py does not parse this schema.
+# Nulls require a decision before execution. No results or actual quotes are supplied.
+schema_version: planning-v1
+status: planning_not_executable
+study:
+  campaign_id: null
+  protocol_version: draft-2026-10-16
+  root_seed: 20261016
+  active_research_hours_per_week_target: 8
+  automated_runtime_is_separate: true
+hardware:
+  hardware_id: null
+  baseline:
+    cpu: AMD Ryzen 5 5600G
+    gpu: NVIDIA RTX 3070
+    board: ASRock B550 Phantom Gaming 4/ac
+    bios: P2.10
+    ram_gb: 32
+  target:
+    gpu: AMD Radeon AI PRO R9700 32GB
+    cpu: AMD Ryzen 9 5900XT
+    psu_w: 850
+    purchased: false
+meter:
+  adapter: null
+  host_environment_variable: SHELLY_IP
+  poll_target_seconds: 1.0
+  http_timeout_seconds: 2.0
+  maximum_valid_gap_seconds: null
+  boundary_policy: interpolate_only_with_bracketing_samples
+  power_units: W
+  energy_units: J
+runtime:
+  backend: ollama
+  host_environment_variable: OLLAMA_HOST
+  version: null
+  timeout_seconds: null
+  require_placement_evidence: true
+models:
+  - artifact_id: core_a
+    model_id: null
+    revision_or_digest: null
+    tokenizer_revision: null
+    prompt_template_hash: null
+    quantizations: [Q4_candidate, Q8_candidate]
+  - artifact_id: core_b
+    model_id: null
+    revision_or_digest: null
+    tokenizer_revision: null
+    prompt_template_hash: null
+    quantizations: [Q4_candidate, Q8_candidate]
+suite:
+  version: four_domain_v1_draft
+  dataset_hash: null
+  domains: [coding, technical_documentation, digital_forensics, general_questions]
+  held_out_tasks_per_domain_target: 10
+  training_data_must_be_source_group_disjoint: true
+generation:
+  temperature: 0
+  top_p: 1
+  output_token_cap: null
+  context_token_cap: null
+  seed_schedule: null
+  stop_rules: null
+  reasoning_mode: null
+schedule:
+  repetitions: 3
+  independent_sessions_target: 3
+  order: seeded_randomized_blocks
+  baseline_seconds_initial_target: 60
+  thermal_stability_policy: null
+  warmup_policy: null
+  retry_policy: preserve_all_attempts
+cloud:
+  enabled: false
+  endpoints: []
+  campaign_api_budget_usd_ceiling: 200
+  request_limit: null
+  current_pricing_snapshot: null
+  scenario_source: null
+  scenario_j_per_token: null
+  scenario_pue: null
+training:
+  enabled: false
+  methods_to_pilot: [lora, qlora_if_backend_supported]
+  base_revision: null
+  training_examples_per_domain_target_range: [100, 300]
+  dataset_hash: null
+  split_hashes: null
+  seed_count_selected_runs: 3
+  adapter_rank: null
+  learning_rate: null
+  precision: null
+  maximum_steps: null
+  maximum_tokens: null
+  maximum_job_hours: null
+  scratch:
+    enabled: false
+    parameter_count_target: null
+    architecture_revision: null
+    corpus_hash: null
+    tokenizer_revision: null
+    maximum_tokens: null
+    maximum_job_hours: null
+output:
+  private_raw_root: runs
+  public_summary_root: results
+  publish_raw_responses: false
+  resume_policy: new_attempt_ids_preserve_history
+  checkpoint_retention_policy: null

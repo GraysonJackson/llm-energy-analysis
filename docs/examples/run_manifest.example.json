@@ -1,0 +1,86 @@
+{
+  "schema_version": "run-manifest-v1-draft",
+  "status": "planning_template_not_a_run",
+  "run_id": null,
+  "campaign_id": null,
+  "protocol_version": "draft-2026-10-16",
+  "created_at_utc": null,
+  "provenance": {
+    "git_commit": null,
+    "working_tree_dirty": null,
+    "resolved_config_hash": null,
+    "resolved_config_path": null,
+    "hardware_inventory_hash": null,
+    "environment_lock_hash": null
+  },
+  "hardware": {
+    "hardware_id": null,
+    "cpu": null,
+    "gpu": null,
+    "usable_vram_bytes": null,
+    "ram_bytes": null,
+    "bios": null,
+    "power_profile": null
+  },
+  "environment": {
+    "os": null,
+    "kernel": null,
+    "python": null,
+    "runtime": null,
+    "gpu_driver": null,
+    "rocm": null,
+    "pytorch": null
+  },
+  "models": [],
+  "dataset": {
+    "suite_version": null,
+    "source_manifest_hash": null,
+    "split_hashes": {
+      "train": null,
+      "validation": null,
+      "test": null
+    },
+    "prompt_list_hash": null
+  },
+  "randomization": {
+    "root_seed": null,
+    "training_seeds": [],
+    "generation_seeds": [],
+    "determinism_flags": null
+  },
+  "meter": {
+    "adapter": null,
+    "model": null,
+    "firmware": null,
+    "measurement_boundary": "workstation_at_wall_monitor_and_network_excluded",
+    "uncertainty_notes": null,
+    "poll_target_seconds": null,
+    "maximum_valid_gap_seconds": null
+  },
+  "schedule": {
+    "schedule_hash": null,
+    "planned_trials": null,
+    "planned_training_jobs": null,
+    "attempt_policy": "append_new_attempt_preserve_failure"
+  },
+  "limits": {
+    "cloud_usd": null,
+    "training_job_hours": null,
+    "total_device_hours": null,
+    "storage_bytes": null
+  },
+  "lineage": {
+    "parent_run_id": null,
+    "resumed_from_run_id": null
+  },
+  "sources": {
+    "pricing_snapshots": [],
+    "cloud_energy_scenarios": []
+  },
+  "observations": {
+    "measured_energy_j": null,
+    "completed_trials": null,
+    "failed_attempts": null
+  },
+  "operator_notes": "Template only. Public exports exclude IP addresses, API keys, account IDs, serial numbers and private paths."
+}

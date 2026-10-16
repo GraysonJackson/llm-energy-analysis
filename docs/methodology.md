@@ -1,252 +1,96 @@
-# Research Methodology
+# Research methodology
 
-## LLM Energy Analysis - Grant 2026
+This protocol supersedes the July scaffold methodology. It defines target research behavior; the current scripts still need the fixes in the [implementation guide](implementation_guide.md).
 
-### Research Question
+## Boundaries
 
-**What is the measurable energy cost of maintaining data sovereignty through local LLM inference compared to cloud-based solutions?**
+Measure AC electricity supplied to the workstation at the wall, including CPU, GPU, RAM, storage, fans and PSU losses. Exclude displays and unrelated devices. State how the meter itself is powered and what its reading includes.
 
----
+Keep unrelated workloads controlled and record background services. Hardware telemetry is diagnostic and does not replace wall measurement. Downloads and setup may be outside a request window but are recorded as separate overhead.
 
-## 1. Overview
+Cloud API responses provide output, latency, token usage and billing data. They do not directly measure provider-server electricity. Electricity used by the local API client is a separate boundary.
 
-This research quantifies the operational energy cost of data sovereignty by comparing the energy efficiency of local LLM inference against cloud-based APIs. The methodology establishes a measurable framework for comparing joules-per-token between local hardware and cloud providers.
+## Integration
 
----
+Use UTC for traceability and monotonic time for intervals. Record meter-request send/receive times and device timestamps if available. A host midpoint timestamp is an approximation with polling-latency uncertainty.
 
-## 2. Hardware Configuration
+Collect before/during/after generation. Clip the trace to the defined request interval and interpolate only between valid bracketing samples within the accepted gap policy. Do not extrapolate missing boundaries.
 
-### Local Test Bench
+~~~text
+E_gross_J = sum((P_i + P_i_plus_1) / 2 * delta_t_seconds)
+E_gross_Wh = E_gross_J / 3600
+E_gross_kWh = E_gross_J / 3_600_000
+E_incremental_J = E_gross_J - idle_mean_W * request_duration_s
+~~~
 
-**Purpose**: Eliminate variables that could skew power metrics
+Preserve negative incremental values and flag baseline/uncertainty review. Unknown or invalid energy is null with a reason, not zero. Time-weighted mean power is energy divided by duration.
 
-**Components**:
-- **GPU**: NVIDIA RTX 5060 Ti (16GB VRAM)
-  - Rationale: Sufficient VRAM to run 8B parameter models entirely in video memory, preventing power-draining data offloads to system RAM
-  
-- **CPU**: AMD Ryzen 9 5900XT (16-core)
-  - Rationale: Ensures background processes don't bottleneck inference pipeline
-  
-- **Cooling**: Liquid CPU cooler + high-airflow case fans
-  - Rationale: Maintains consistent temperature baseline during sustained testing (thermal throttling alters power consumption)
-  
-- **Power Monitoring**: Shelly Smart Plug with power metering
-  - Rationale: Hardware-level measurement captures exact wattage at the wall
+Approximately one-second polling is a starting setting, not a guarantee of the meter's actual update rate or accuracy. Measure timing, stale updates, gaps and uncertainty in the pilot. Short requests may require repeated batches; per-request batch averages are amortized estimates.
 
-### Measurement Precision
+## Baselines and state
 
-- **Polling Interval**: 1-second intervals
-- **Integration Method**: Trapezoidal integration for accurate energy calculation
-- **Baseline**: Idle power subtracted from active measurements
-- **Resolution**: ±0.1W accuracy
+Measure at least 60 seconds of relevant idle state and extend unstable baselines. Distinguish no-model idle, loaded-model idle, post-training idle, cold load and warm inference.
 
----
+Warm-up electricity and runtime are recorded as setup overhead and excluded from steady-state averages. Fixed pauses alone do not establish thermal stability. Bracket blocks with baselines where feasible and retain drift/variance.
 
-## 3. Software Stack
+Keep cache state explicit. A model that unloaded during cooldown is not a warm trial.
 
-### Local Inference
-- **Framework**: Ollama
-- **Models**: LLaMA 3 (8B parameters), Mistral, others as available
-- **Quantization**: 8-bit quantization to fit in VRAM
-- **Configuration**: Temperature 0.7, consistent across all tests
+## Tokens and latency
 
-### Cloud APIs
-- **Providers**: OpenAI (GPT-3.5, GPT-4), Anthropic (Claude 3)
-- **Configuration**: Identical temperature and max tokens settings
-- **Cost Tracking**: Per-request token usage and pricing
-- **Energy Attribution**: Based on published provider sustainability reports
+Use runtime-reported counts, including Ollama completion metadata. Stream chunks and len(text)//4 are not valid replacements for actual token counts.
 
----
+Report input/output tokens, token source, completion reason, client latency, streamed first-nonempty-answer latency, runtime decode duration and loading time separately where available. Unavailable timing is null.
 
-## 4. Experimental Protocol
+Joules per generated output token and joules per total input-plus-output token are distinct metrics. Cross-model tokenizers produce different units of work; quality and energy per adequate task response are primary comparison context.
 
-### Phase 1: Baseline Measurement (60 seconds)
-1. System idle state (no active workloads)
-2. Power readings at 1-second intervals
-3. Calculate average idle power consumption
-4. Purpose: Establish baseline for subtraction from active measurements
+## Controls
 
-### Phase 2: Thermal Stabilization (3 warm-up queries)
-1. Execute warm-up prompts to load model into memory
-2. Allow GPU/CPU to reach steady-state temperature
-3. Wait for cooling period (30 seconds)
-4. Purpose: Eliminate model loading overhead and thermal ramp-up from measurements
+Freeze dataset/split hashes, model revision/digest, tokenizer, template, quantization, generation parameters, context/output caps, backend, offloading, power profile and software versions.
 
-### Phase 3: Local LLM Testing
-1. For each model:
-   - Execute standardized prompt set
-   - Monitor power consumption continuously during generation
-   - Record: input tokens, output tokens, generation time, power draw
-   - Calculate: joules consumed, joules per token
-   - Cool down period: 30 seconds between tests
-2. Repeat 3 times for statistical validity
+Use seeded prompt/block randomization and distribute repetitions across sessions. The original suite starts with three repeats; pilot variance determines whether more are needed. Repeats of one prompt are not independent task samples.
 
-### Phase 4: Cloud API Testing
-1. For each provider/model combination:
-   - Execute identical prompt set
-   - Record: input tokens, output tokens, response time, cost
-   - Apply energy attribution from provider data
-   - Calculate: estimated joules per token
-2. Respect rate limits (1-second delay between requests)
-3. Repeat 3 times for statistical validity
+GPU-only claims require verified placement. If CPU, PSU, OS and GPU change together, report a system comparison. Match unchanged components where practical.
 
----
+## Quality
 
-## 5. Test Prompts
+Execution completion is separate from adequate output. Preserve wrong answers, empty outputs, truncation, invented evidence and failed code tests. Define adequacy before collection and retain domain-specific rubrics.
 
-Standardized prompts covering diverse workloads:
+Use public/synthetic data, source-aware splits and checks against exact/near-duplicate leakage. A held-out document's paraphrases must not appear in training data. Review a scoring subset with the mentor when possible.
 
-1. **Code Generation** (3 prompts)
-   - Function implementations, class definitions, SQL queries
-   - Tests computational reasoning
+## Training
 
-2. **Text Summarization** (3 prompts)
-   - Various text lengths
-   - Tests compression capabilities
+Measure setup, optimization, validation, checkpointing, conversion and subsequent inference separately. Record successful-job and full-campaign energy, including failed jobs and hyperparameter searches. Do not double-count nested phase totals.
 
-3. **Question Answering** (7 prompts)
-   - Factual, reasoning, technical questions
-   - Tests knowledge retrieval
+Compare adapters with the exact unchanged base on held-out tasks and a general-domain regression set. Record independent training seeds separately from inference repeats.
 
-4. **Creative Writing** (3 prompts)
-   - Stories, poetry, product descriptions
-   - Tests generative capabilities
+From-scratch work is a bounded small-model extension. Different architectures/tokenizers/pretraining histories prevent claims of equal-capability training comparisons.
 
-5. **Technical Documentation** (3 prompts)
-   - API docs, troubleshooting guides, instructions
-   - Tests structured output
+## Cloud scenarios
 
-**Total**: 20 standardized prompts × 3 repetitions = 60 measurements per model
+A usable source specifies date, URL, workload/model context, units, input/output treatment, boundary and uncertainty. Unknown energy stays unavailable. Annual company energy or an unsourced constant is not a per-request observation.
 
----
+~~~text
+J_per_token_from_kWh_per_1000_tokens =
+  source_value * 3_600_000 / 1000
+~~~
 
-## 6. Energy Attribution for Cloud APIs
+Apply PUE only to IT-only energy that excludes facilities. Avoid multiplying whole-facility estimates again. Show low/central/high assumptions where justified and label them as scenarios.
 
-### Data Sources
-- **OpenAI**: Published sustainability reports (~0.0006-0.0015 kWh per 1000 tokens)
-- **Anthropic**: Similar published data
-- **PUE Factor**: 1.2 (typical data center Power Usage Effectiveness)
+Use separate dated input/output/cache prices and provider-specific billing semantics for API cost. Count probes, retries and evaluator usage toward the budget.
 
-### Calculation
-```
-Joules per token = (kWh per token × 3600 J/Wh) × PUE factor
-```
+## Analysis and claims
 
-### Limitations
-- Cloud estimates based on provider-reported averages
-- Actual values may vary by region, time of day, server utilization
-- Data center overhead (cooling, networking) included via PUE
+Select explicit runs and verify compatibility rather than choosing latest files independently. Retain counts for attempts, completed, valid, adequate and excluded outputs, with reasons.
 
----
+Report paired task differences, means/medians, variation, quality and failure rates. Cluster uncertainty estimates by independent prompts/source groups as appropriate. Record method/sample sizes and avoid broad claims from small pilots.
 
-## 7. Data Collection
-
-### Metrics Recorded
-
-**Local Inference**:
-- Timestamp
-- Model name
-- Prompt ID and category
-- Input tokens, output tokens, total tokens
-- Generation time (seconds)
-- Tokens per second
-- Power consumption: start, end, average (Watts)
-- Energy consumed (Joules)
-- Joules per token
-- System temperature (if available)
-
-**Cloud Inference**:
-- Timestamp
-- Provider and model
-- Prompt ID and category
-- Input tokens, output tokens, total tokens
-- Response time (seconds)
-- Cost (USD)
-- Estimated energy (Joules, from provider data)
-- Joules per token
-
-### Data Format
-- **Storage**: CSV files with timestamps
-- **Naming**: `local_benchmark_YYYYMMDD_HHMMSS.csv`
-- **Encoding**: UTF-8
-
----
-
-## 8. Analysis Methods
-
-### Statistical Measures
-- **Mean**: Average joules per token
-- **Median**: Central tendency measure
-- **Standard Deviation**: Variability indicator
-- **Repetition Averaging**: 3 runs per prompt reduce noise
-
-### Comparative Analysis
-1. **Energy Efficiency**: Local J/token vs Cloud J/token
-2. **Cost Analysis**: Cloud operational cost vs local capital cost
-3. **Performance**: Response time comparison
-4. **Category Analysis**: Energy by task type
-
-### Visualization
-- Bar charts: Local vs Cloud comparison
-- Horizontal bars: Energy by model
-- Line plots: Power consumption over time
-- Scatter plots: Privacy-energy tradeoff
-
----
-
-## 9. Validity Considerations
-
-### Internal Validity
-- **Controlled Variables**: Same prompts, same configuration
-- **Thermal Management**: Cooling periods prevent thermal throttling
-- **Repetition**: Multiple runs reduce measurement noise
-- **Baseline Subtraction**: Isolates inference energy from idle consumption
-
-### External Validity
-- **Model Selection**: Popular, representative models
-- **Prompt Diversity**: Multiple task categories
-- **Real-World Conditions**: Typical hardware and configurations
-
-### Measurement Reliability
-- **Hardware Accuracy**: Smart plug ±0.1W
-- **Timestamp Precision**: Millisecond-level timing
-- **Energy Integration**: Trapezoidal method reduces discretization error
-
----
-
-## 10. Limitations
-
-1. **Token Counting**: Approximation for local models (no native tokenizer access)
-2. **Cloud Energy**: Based on provider-reported averages, not direct measurement
-3. **System Overhead**: Total system power measured (not just GPU)
-4. **Model Variability**: Different model architectures may have different efficiency characteristics
-5. **Network Latency**: Cloud response times include network overhead
-
----
-
-## 11. Ethical Considerations
-
-- **Energy Transparency**: Full disclosure of measurement methodology
-- **Data Privacy**: No sensitive data used in prompts
-- **Reproducibility**: All code and configurations publicly available
-- **Academic Integrity**: Honest reporting of both successes and limitations
-
----
-
-## 12. Expected Outcomes
-
-This methodology will produce:
-1. Precise joules-per-token measurements for local inference
-2. Comparative analysis with cloud provider energy attribution
-3. Cost-benefit analysis of data sovereignty vs cloud convenience
-4. Publication-quality visualizations for grant reporting
-5. Reproducible framework for future energy studies
-
----
+Measure operational electricity. Lifecycle carbon, water use, universal environmental superiority and a causal energy price for privacy are outside what these observations alone establish.
 
 ## References
 
-- OpenAI Sustainability Reports
-- Anthropic Environmental Impact Documentation
-- IEEE Standards for Power Measurement
-- SPEC Power and Performance Benchmarks
+- [Ollama generation](https://docs.ollama.com/api/generate)
+- [Shelly Switch API](https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/Switch/)
+- [Shelly Plug US Gen4](https://kb.shelly.cloud/knowledge-base/shelly-plug-us-gen4)
+- [Inference energy research](https://arxiv.org/abs/2311.16863)
+
+Checked October 16, 2026. Verify actual device/firmware performance; no unsupported absolute meter-accuracy claim is assumed.

@@ -1,0 +1,62 @@
+{
+  "schema_version": "evaluation-item-v1-draft",
+  "status": "synthetic_authored_example_not_a_result",
+  "item_id": "forensics-synthetic-001",
+  "domain": "digital_forensics",
+  "suite_version": "four_domain_v1_draft",
+  "source_group_id": "authored-synthetic-case-001",
+  "split": "test_example_only",
+  "difficulty": "easy",
+  "source": {
+    "kind": "authored_synthetic",
+    "license": "Permission and repository license must be settled before release",
+    "contains_real_case_data": false
+  },
+  "model_input": {
+    "instruction": "Using only these synthetic records, identify the earliest successful login and whether a file download can be attributed to that user. Cite record IDs and distinguish evidence from uncertainty.",
+    "records": [
+      {
+        "id": "E1",
+        "timestamp_utc": "2026-01-01T10:00:00Z",
+        "event": "login_failure",
+        "user": "analyst_a"
+      },
+      {
+        "id": "E2",
+        "timestamp_utc": "2026-01-01T10:01:00Z",
+        "event": "login_success",
+        "user": "analyst_b",
+        "session_id": "S2"
+      },
+      {
+        "id": "E3",
+        "timestamp_utc": "2026-01-01T10:02:00Z",
+        "event": "download",
+        "file": "sample.txt",
+        "session_id": null
+      }
+    ]
+  },
+  "private_evaluator_reference": {
+    "earliest_success": {
+      "user": "analyst_b",
+      "timestamp_utc": "2026-01-01T10:01:00Z",
+      "evidence_ids": [
+        "E2"
+      ]
+    },
+    "attribution": "The supplied records do not link E3 to a user or session. Do not attribute the download to analyst_b.",
+    "mandatory_checks": [
+      "identifies_E2_as_earliest_success",
+      "cites_E2",
+      "states_download_attribution_unknown",
+      "does_not_invent_missing_link"
+    ],
+    "critical_failure": "Claims a user downloaded the file without evidence.",
+    "rubric_revision": "forensics-rubric-draft-1",
+    "adequacy_threshold": "All mandatory checks and no critical failure"
+  },
+  "leakage_policy": "Keep evaluator reference out of model input; keep this source group out of training and validation.",
+  "model_response": null,
+  "quality_score": null
+}

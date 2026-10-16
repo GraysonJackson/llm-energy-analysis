@@ -1,0 +1,16 @@
+experiment_id,stage,priority,suite,domains,prompts,models_or_endpoints,quantizations,repetitions,training_seeds,planned_count,count_unit,gate,status
+P0,functional_smoke,required,four_domain_pilot,all_four,8,1,1,2,0,16,inference_requests,collector_and_backend_valid,planned
+E1,original_core,required,legacy_20,five_legacy_categories,20,2,2,3,0,240,inference_requests,smoke_and_quality_pipeline_pass,planned
+E2,expanded_core,required,four_domain_v1,all_four,40,2,2,3,0,480,inference_requests,dataset_frozen_and_E1_accepted,planned
+C1,cloud_comparison,conditional,four_domain_v1,all_four,40,2,1,3,0,240,cloud_requests,endpoint_access_and_cost_cap_approved,planned_maximum
+E3,larger_model,conditional,diagnostic_10,balanced_subset,10,1,2,3,0,60,inference_requests_per_larger_model,memory_backend_license_feasible,planned_maximum
+E4,context_output,conditional,diagnostic_subset,balanced_subset,,,,,,,unresolved,select_levels_after_pilot,not_sized
+E5,cpu_offload,conditional,diagnostic_subset,balanced_subset,,,,,,,unresolved,verify_placement_and_bound_runtime,not_sized
+E6,hardware_comparison,conditional,matched_subset,balanced_subset,,,,,,,unresolved,old_and_new_hardware_available_with_controls,not_sized
+E7,cold_warm_idle,conditional,diagnostic_subset,balanced_subset,,,,,,,unresolved,define_loading_cache_idle_windows,not_sized
+E8,power_profiles,optional,diagnostic_subset,balanced_subset,,,,,,,unresolved,supported_stable_profiles_and_core_complete,not_sized
+E9,concurrency,optional,diagnostic_subset,balanced_subset,,,,,,,unresolved,serial_core_complete_and_request_attribution_defined,not_sized
+T1,adapter_feasibility,conditional,training_pilot,all_four,,1,,,1,4,training_jobs_per_method,AMD_stack_and_source_group_splits_valid,planned
+T2,selected_adapter_runs,conditional,training_selected,all_four,,1,,,3,12,training_jobs_per_selected_method,T1_pass_and_job_caps_selected,planned
+T3,scratch_feasibility,exploratory,scratch_pilot,selected_domain,,1,,,1,1,training_job,corpus_tokenizer_and_compute_caps_selected,planned
+T4,scratch_replication,exploratory,scratch_selected,selected_domain,,1,,,3,3,training_jobs_per_selected_architecture,T3_pass_and_time_remaining,planned

@@ -1,3 +1,9 @@
+# Historical Signature Grant narrative
+
+This document preserves the original 2026 proposal and purchase list. For the October 16 expanded plan, use [the research plan](docs/research_plan.md), [hardware/funding](docs/hardware_and_funding.md), and [implementation guide](docs/implementation_guide.md). The original NVIDIA list and historical prices are not the current AMD purchase quote. Local hosting is not automatically an air-gap or a complete security solution, and this study measures operational electricity rather than deriving a complete carbon footprint.
+
+---
+
 # Tab 1
 
 ### **Document 1: Biography / Artist Statement**

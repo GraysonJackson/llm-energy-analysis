@@ -68,3 +68,18 @@ dmypy.json
 *.bak
 temp/
 tmp/
+
+# Expanded research records and model artifacts
+.venv/
+.env.*
+!.env.example
+runs/
+artifacts/
+checkpoints/
+data/raw/
+data/private/
+application-private/
+*.safetensors
+*.gguf
+*.pt
+*.pth
