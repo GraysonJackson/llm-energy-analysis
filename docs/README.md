@@ -21,6 +21,8 @@ Updated October 16, 2026. These documents specify research work and software to 
 - The original Signature Grant narrative is historical. Its original purchase list is not the current AMD target or a new purchase approval.
 - Actual award terms and institutional approvals override planning assumptions. Update the dated tracker after mentor/ORSP decisions.
 
+- [Privacy and local control protocol](privacy_protocol.md) defines proposed data-handling checks and the student’s task priorities.
+
 ## Supporting records
 
 - [Experiment matrix](experiment_matrix.csv)

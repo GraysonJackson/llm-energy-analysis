@@ -2,9 +2,11 @@
 
 Updated October 16, 2026. Grayson Jackson, student researcher; Rebecca Passmore, faculty mentor; UA Little Rock. The expanded scope is proposed for mentor review and must be synchronized with final application materials.
 
+Working application title: **Energy and Privacy Tradeoffs in Local Language Models**.
+
 ## Main question
 
-How do model size, quantization, hardware configuration, and task-specific training affect the energy required to produce useful local AI responses?
+How do model size, quantization, hardware configuration, and task-specific training affect the energy required to produce useful local AI responses while keeping prompts and outputs under local control?
 
 The motivation is concern about data-center resources and interest in retaining control of prompts and outputs. This study measures operational electricity and usefulness. It does not assume local AI is always more efficient or measure water use, manufacturing emissions or a complete environmental footprint.
 
@@ -18,7 +20,7 @@ The motivation is concern about data-center resources and interest in retaining 
 | RQ4 | What can a small randomly initialized model learn under a defined compute budget? | Learning curves, held-out loss/quality, training energy and limitations |
 | RQ5 | How do local observations compare with cloud latency/cost and sourced cloud energy scenarios? | Same tasks, provider usage, dated pricing, explicit scenario boundaries |
 
-Privacy is a deployment property, not a fabricated numeric axis. Different local/cloud models cannot isolate a causal energy cost for privacy.
+The proposed [privacy protocol](privacy_protocol.md) documents data paths, cloud fallback, network-blocked functional tests and bounded egress observations. Privacy is a deployment property, not a fabricated numeric axis. Different local/cloud models cannot isolate a causal energy cost for privacy.
 
 ## Stages
 
@@ -36,6 +38,8 @@ Privacy is a deployment property, not a fabricated numeric axis. Different local
 The 240-trial and 480-trial suites are different dataset versions. Their counts are not interchangeable. The existing application drafts require revision for the new training scope before submission.
 
 ## Four domains
+
+Student priority: coding, general questions, technical documentation, then digital forensics. Representative uses are small programs, general questions and source-grounded implementation guides.
 
 - Coding: short functions, debugging, explanations and isolated correctness checks.
 - Technical document questions: source-grounded answers and summaries with claim-to-source checking.
@@ -58,10 +62,10 @@ For from-scratch work, select a small architecture after a memory/runtime pilot.
 | Before hardware replacement | Preserve comparable RTX 3070 measurements if practical |
 | January 2027 | Permitted purchases, validated environment, meter tests, run records |
 | February | Pilot, original core, freeze expanded datasets and scoring |
-| March | Four-domain measurements, initial cloud trials, Expo registration by March 19 |
-| April | Initial SEG findings at April 16 Expo |
-| May-June | Larger-model and domain-adaptation pilots |
-| July-August | Repeated feasible adaptation; small from-scratch pilot if core is sound |
+| March | Core inference measurements and Expo registration by March 19 |
+| April | Initial SEG findings at April 16 Expo and the defined SEG milestone |
+| May-June | Freeze expanded task data/rubrics; four-domain measurements and cloud scenarios |
+| July-August | Four-domain LoRA pilots and feasible repeats; larger inference/small scratch feasibility |
 | September | Targeted repeats, general-domain regression and supported extensions |
 | October-November | Analysis, report, reproducibility package, eligible presentation |
 | By December 1, 2027 | Proposed SURF completion/reporting/spending end; confirm award terms |
@@ -74,3 +78,9 @@ Eight active hours weekly are planned across spring, summer and fall. Automated 
 Confirmed student preferences: individual project; $1,000 SEG unspent; new-only purchases; one R9700 32GB target; AM4 CPU/PSU upgrade; existing 32GB RAM/SSD retained initially; personal workstation; willingness to use stipend/match for equipment if allowed; both Expo intentions.
 
 Pending: mentor approval of expanded scope, actual quotes, model revisions/quantizations, datasets, software stack, meter uncertainty, training feasibility, eligible travel, procurement/ownership, match and remaining institutional approvals.
+
+## October 16 student clarification
+
+The brief mentor meeting is complete; the full docket is for subsequent scope and supervision review. ORSP has not replied. The student has prior LoRA experience using PyTorch or Unsloth and is willing to use native Linux if needed. These do not establish AMD backend compatibility. Actual unattended job caps remain for pilots.
+
+If expanded funding is unavailable, use the RTX 3070 and approved SEG purchases to answer the same core question on smaller models. Success requires valid traces, quality checks, documented privacy boundaries and reproducible findings, including infeasible or negative results. Freeze two supported open-weight models current at collection for the expanded study; the original model candidates remain legacy validation examples.

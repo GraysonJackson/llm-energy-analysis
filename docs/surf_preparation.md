@@ -1,24 +1,24 @@
 # SURF preparation tracker
 
-Public-safe status, October 16, 2026, before the scheduled mentor meeting. This is preparation, not a submitted application or award confirmation. Private documents are stored separately.
+Public-safe status, October 16, 2026, after a brief mentor readiness meeting. This is preparation, not a submitted application or award confirmation. Private documents are stored separately.
 
 ## Progress
 
 | Item | Status | Next action |
 | --- | --- | --- |
 | SEG | $1,000 awarded/unspent | Confirm revised purchases and applicable cycle requirements |
-| Mentor | Rebecca Passmore agreed; meeting scheduled | Review scope, methods, equipment and timeline |
+| Mentor | Brief meeting completed; full docket requested | Review scope, methods, equipment and timeline |
 | ORSP | Guidance email sent | Await procurement, ownership, stipend/match and routing guidance |
 | Official transcript | Received according to student | Verify application facts and include through official process |
 | Current classes | Listing and enrollment record available | Include final current-semester record |
 | Student form/vita | Separate drafts prepared | Student review |
-| Summary/description/references | Separate 1-page summary, 5-page description and references | Revise for AMD selection and staged expanded scope after mentor review |
+| Summary/description/references | Separate 1-page summary, 5-page description and references | Revised for AMD selection, privacy checks and staged training; mentor/student review pending |
 | Mentor form | Two-page completed form received | Standardize official department wording |
 | Mentor vita | Three-page source; separate two-page draft prepared | Mentor approves condensed version |
 | Mentor letter | Received | Remove outdated Bioinformatics minor reference |
 | Additional letters | Both faculty writers agreed; supporting emails sent | Obtain completed letters |
 | Cover/PAR | Mentor-signed originals and separate populated review drafts | Complete missing entries and signatures |
-| Budget | Official-template review drafts prepared | Replace allowances with quotes/API estimate/eligible travel |
+| Budget | Revised review version has $0 travel and $2,000 SURF request | Finalize quotes, API estimate, classifications and match |
 
 Current minors are Cybersecurity and Photography. Academic identifiers, grades, transcript contents, mailing addresses, signatures and recommendation text are omitted from this public tracker.
 
@@ -30,9 +30,9 @@ Current minors are Cybersecurity and Photography. Academic identifiers, grades, 
 - Initial SEG presentation intended April 16, 2027 Expo; published registration closes March 19.
 - Intended continuation presentation spring 2028; event details pending. It does not extend the 2027 work/spending/reporting period.
 
-## Meeting decisions
+## Decisions for the full docket review
 
-1. Approve a main question linking model size, quantization, adaptation, energy and quality.
+1. Approve a main question linking privacy, model size, quantization, adaptation, energy and quality.
 2. Keep validated inference as the core; review four-domain evaluation and staged training extensions.
 3. Justify R9700 32GB, CPU, PSU, cooling and meter through specific tests.
 4. Choose pilot models/datasets, quality criteria, milestones and check-ins.
@@ -44,7 +44,7 @@ Current minors are Cybersecurity and Photography. Academic identifiers, grades, 
 ## Form consistency
 
 - Mentor is PI; student is Co-PI #1 on PAR.
-- FY27 instructions require Initial Period only. Maximum review scenario: $2,750 direct costs and $0 F&A, not $4,250/$5,000.
+- FY27 instructions require Initial Period only. Current review version: $2,000 direct costs and $0 F&A. Cover project total is $3,250 with match; combined resources are $4,250 including SEG. The theoretical travel-inclusive ceiling is not this request.
 - NSF classification available on form: RE01-Computer Sciences.
 - ORSP completes Sponsor Data and COI. The original PAR's 11/2/2025 sponsor deadline is stale.
 - Cover needs private fields, final budget and institutional signature. Enter sensitive identifiers directly through the institution's process.
@@ -67,4 +67,6 @@ Keep private forms, informal correspondence and this tracker out of the public r
 - [SURF overview](https://sams.adhe.edu/Scholarship/Details/SURF)
 - [Expo](https://ualr.edu/signature/expo/)
 
-Update after the mentor meeting and ORSP response. Pending approvals must not be marked complete by inference.
+Update after the full docket review and ORSP response. Pending approvals must not be marked complete by inference.
+
+The official transcript is received by the student but not yet included in the private review packet; academic entries remain to be checked. Faculty letters and mentor vita/letter review are still pending. No new approval was inferred from the brief meeting.

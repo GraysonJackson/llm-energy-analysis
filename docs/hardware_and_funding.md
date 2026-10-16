@@ -52,24 +52,30 @@ The original SEG list had an RTX 5060 Ti 16GB at historical July prices. It rema
 
 The student wants to devote the full $2,500 stipend/match to equipment if permitted after disbursement. With SEG and proposed mentor costs that gives a conditional $4,250 non-travel target. Official entries stay stipends. Personal retention of parts is requested, not approved.
 
-## Conditional allocation
+## Current review allocation
 
-The GPU allowance below predates selection of the R9700. Replace it with an actual obtainable quote; $2,950 is not a claim about this card's current price. Remaining funds need a justified revised allocation and required approvals.
+Checked October 16, 2026: Newegg displayed the ASRock R9700 CT 32GB at **$1,699.99**, sold and shipped by Newegg with Add to cart shown. This replaces the old $2,950 GPU allowance. It is a dated retail reference, not an institutional quote or guaranteed future availability.
 
-| Item | Total | SEG | Mentor | Student stipend | Match |
+The current review request is $1,250 student stipend plus $750 mentor costs and $0 travel: **$2,000 SURF**, **$3,250 including proposed match**, and **$4,250 including existing SEG**. Stipends remain support for research time. Their possible use for purchases is conditional.
+
+| Item | Total USD | SEG | Mentor | Student stipend | Match |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| One 32GB GPU | $2,950 | $350 | $100 | $1,250 | $1,250 |
-| CPU | $300 | $300 | $0 | $0 | $0 |
-| PSU | $250 | $0 | $250 | $0 | $0 |
-| Cooling | $100 | $100 | $0 | $0 | $0 |
-| Meter | $50 | $50 | $0 | $0 | $0 |
-| API | $200 | $0 | $200 | $0 | $0 |
-| Tax/shipping | $400 | $200 | $200 | $0 | $0 |
-| Total | $4,250 | $1,000 | $750 | $1,250 | $1,250 |
+| One R9700 32GB | 1,699.99 | 0 | 250 | 1,250 | 199.99 |
+| Ryzen 9 5900XT | 300 | 300 | 0 | 0 | 0 |
+| 850W PSU | 250 | 0 | 250 | 0 | 0 |
+| Cooling | 100 | 100 | 0 | 0 | 0 |
+| Meter | 50 | 50 | 0 | 0 | 0 |
+| API usage | 200 | 0 | 200 | 0 | 0 |
+| Tax/shipping | 200 | 150 | 50 | 0 | 0 |
+| Allocated total | 2,799.99 | 600 | 750 | 1,250 | 199.99 |
 
-No RAM or SSD expense is included. Invoice splitting across institutional/personal funds needs an approved process. Taxes/shipping must match actual charges. Funding timing must support purchase timing.
+Except for the dated GPU listing, these are allowances or spending ceilings, not quoted costs. Obtain exact new-stock SKUs and actual destination charges. No second GPU, RAM or SSD is proposed initially.
 
-The draft travel split ($150 registration, $200 transport, $400 lodging) is provisional, without a selected conference. The campus Expo is free and does not establish those costs. The spring 2028 presentation is outside the proposed 2027 spending period.
+This allocation leaves $400 of SEG without a revised expense assignment and $1,050.01 of the institutional stipend match outside the purchase list. That match remains proposed support for research time, not an additional equipment expense. Unassigned SEG must follow its award terms. Do not fabricate expenses to exhaust a ceiling.
+
+Invoice splitting across institutional/personal funds and personal retention still need an approved process. If expanded funding is unavailable, retain the RTX 3070, use approved SEG purchases for reliable metering and needed support, and reduce optional model/training scale. No extra personal contribution is assumed.
+
+The older $750 travel split is withdrawn from this review version. The campus Expo is free and does not justify those costs. Confirm an eligible SURF dissemination venue with ORSP; zero travel does not remove the presentation requirement. Spring 2028 dissemination does not extend the 2027 spending/reporting period.
 
 ## ORSP decisions
 
@@ -92,3 +98,5 @@ For quotes record SKU/model, vendor, new-stock condition, date/expiry, quantity,
 - [SURF](https://sams.adhe.edu/Scholarship/Details/SURF)
 - [ORSP purchasing](https://ualr.edu/orsp/award-management/)
 - [SEG guidelines](https://ualr.edu/signature/award-guidelines/)
+
+- [Dated GPU retail reference](https://www.newegg.com/asrock-creator-r9700-ct-radeon-ai-pro-r9700-32gb-graphics-card/p/N82E16814930143)

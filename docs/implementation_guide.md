@@ -31,6 +31,9 @@ Updated October 16, 2026. The code audit refers to repository commit e712d8d8ce7
 
 ## 1 Scope and terminology
 
+The application retains privacy as a central cybersecurity question. Implement the separate [privacy and local control protocol](privacy_protocol.md), including data paths, disabled provider fallback, external-network-blocked tests and evidence-bound egress checks. Task priority is coding, general questions, technical documentation, then synthetic digital forensics. The original model candidates validate the legacy suite; freeze supported models current at collection for the expanded study.
+
+
 The central question is how model size, quantization, hardware configuration and task-specific training affect the energy required for useful local AI responses. Every experiment must produce an energy result and a task-quality result, or explicitly explain why one is unavailable.
 
 Use the following terms consistently:

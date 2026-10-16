@@ -1,5 +1,7 @@
 # LLM Energy Analysis
 
+The working application title is **Energy and Privacy Tradeoffs in Local Language Models**. Privacy and local control are central cybersecurity questions.
+
 This project investigates how model size, quantization, hardware configuration, and task-specific training affect the electricity required to produce useful local AI responses. It compares measured workstation energy with clearly identified cloud energy estimates or scenarios. Local inference is not assumed to be more efficient, and local hosting alone is not a security guarantee.
 
 Grayson Jackson is the student researcher at the University of Arkansas at Little Rock. Rebecca Passmore is the faculty mentor. A $1,000 Signature Experience Grant has been awarded and remains unspent as of October 16, 2026. The expanded SURF application and equipment allocation are being prepared; they are not an awarded SURF budget.
@@ -11,6 +13,7 @@ Grayson Jackson is the student researcher at the University of Arkansas at Littl
 | [Documentation index](docs/README.md) | Reading order and document authority |
 | [Research plan](docs/research_plan.md) | Questions, stages, four task areas and milestones |
 | [Implementation guide](docs/implementation_guide.md) | Detailed build order, contracts, experiments, validation and acceptance criteria |
+| [Privacy protocol](docs/privacy_protocol.md) | Data handling, blocked-network tests, evidence and bounded claims |
 | [Methodology](docs/methodology.md) | Measurement boundaries, calculations, controls and interpretation |
 | [Datasets and evaluation](docs/datasets_and_evaluation.md) | Data preparation, held-out splits, scoring and examples |
 | [Hardware and funding](docs/hardware_and_funding.md) | Existing equipment, AMD target, conditional allocations and purchasing decisions |
@@ -22,13 +25,13 @@ Grayson Jackson is the student researcher at the University of Arkansas at Littl
 
 1. Validate measurement and reproduce a small inference pilot.
 2. Complete the original two-model, two-quantization, 20-prompt core benchmark: 240 local trials at three repetitions.
-3. Extend to coding, technical document questions, digital forensics and general questions. The proposed 40-prompt suite has 480 local trials and is versioned separately.
+3. Extend to coding, general questions, technical document questions and synthetic digital forensics, in that priority order. The proposed 40-prompt suite has 480 local trials and is versioned separately.
 4. Compare larger existing models that actually fit the upgraded system.
 5. Pilot LoRA/QLoRA fine-tuning across all four task areas, measuring training cost and subsequent inference behavior.
 6. Investigate a small language model trained from scratch as an exploratory extension.
 7. Compare local latency, usage and quality with up to two cloud endpoints. Cloud server electricity remains an estimate or scenario.
 
-Training and the expanded experiment system are proposed work, not already implemented features. The original baseline remains useful if a later stage cannot pass its feasibility checks.
+Training and the expanded experiment system are proposed work, not already implemented features. The RTX 3070 remains available for baseline work and is the core-study fallback if additional hardware funding is unavailable. No extra personal contribution is assumed.
 
 ## Hardware
 
