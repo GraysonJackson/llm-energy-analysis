@@ -1,13 +1,13 @@
 # SURF preparation tracker
 
-Public-safe status, October 16, 2026, after a brief mentor readiness meeting. This is preparation, not a submitted application or award confirmation. Private documents are stored separately.
+Public-safe status, October 19, 2026, after positive mentor feedback on the review docket. This is preparation, not a submitted application or award confirmation. Private documents are stored separately.
 
 ## Progress
 
 | Item | Status | Next action |
 | --- | --- | --- |
 | SEG | $1,000 awarded/unspent | Confirm revised purchases and applicable cycle requirements |
-| Mentor | Brief meeting completed; full docket requested | Review scope, methods, equipment and timeline |
+| Mentor | Reports docket looks good; PAR requested separately | Send the separate PAR review copy and complete routing |
 | ORSP | Guidance email sent | Await procurement, ownership, stipend/match and routing guidance |
 | Official transcript | Received according to student | Verify application facts and include through official process |
 | Current classes | Listing and enrollment record available | Include final current-semester record |
@@ -16,7 +16,7 @@ Public-safe status, October 16, 2026, after a brief mentor readiness meeting. Th
 | Mentor form | Two-page completed form received | Standardize official department wording |
 | Mentor vita | Three-page source; separate two-page draft prepared | Mentor approves condensed version |
 | Mentor letter | Received | Remove outdated Bioinformatics minor reference |
-| Additional letters | Both faculty writers agreed; supporting emails sent | Obtain completed letters |
+| Additional letters | Hawkins letter received according to student; Spann letter still pending | Add Hawkins original to the private packet and obtain Spann letter |
 | Cover/PAR | Mentor-signed originals and separate populated review drafts | Complete missing entries and signatures |
 | Budget | Revised review version has $0 travel and $2,000 SURF request | Finalize quotes, API estimate, classifications and match |
 
@@ -69,4 +69,4 @@ Keep private forms, informal correspondence and this tracker out of the public r
 
 Update after the full docket review and ORSP response. Pending approvals must not be marked complete by inference.
 
-The official transcript is received by the student but not yet included in the private review packet; academic entries remain to be checked. Faculty letters and mentor vita/letter review are still pending. No new approval was inferred from the brief meeting.
+The official transcript is received by the student but not yet included in the private review packet; academic entries remain to be checked. The Hawkins letter has now arrived according to the student but its file has not been supplied here. The Spann letter remains pending. The mentor reports that the docket looks good and requested the PAR separately. This does not establish completion of remaining institutional signatures or ORSP decisions.
