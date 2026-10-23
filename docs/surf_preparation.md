@@ -1,14 +1,14 @@
 # SURF preparation tracker
 
-Public-safe status, October 19, 2026, after positive mentor feedback on the review docket. This is preparation, not a submitted application or award confirmation. Private documents are stored separately.
+Public-safe status, October 23, 2026, after positive mentor feedback on the review docket. This is preparation, not a submitted application or award confirmation. Private documents are stored separately.
 
 ## Progress
 
 | Item | Status | Next action |
 | --- | --- | --- |
-| SEG | $1,000 awarded/unspent | Confirm revised purchases and applicable cycle requirements |
+| SEG | $1,000 awarded/unspent; Foundation administered | Administrator confirms revised purchases, stipend compatibility, spring completion and Expo requirements |
 | Mentor | Reports docket looks good; PAR requested separately | Send the separate PAR review copy and complete routing |
-| ORSP | Guidance email sent | Await procurement, ownership, stipend/match and routing guidance |
+| ORSP | Stipend and travel routes clarified | Submit revised mentor items for classification review; confirm match, net stipend amount and schedule |
 | Official transcript | Received according to student | Verify application facts and include through official process |
 | Current classes | Listing and enrollment record available | Include final current-semester record |
 | Student form/vita | Separate drafts prepared | Student review |
@@ -39,7 +39,7 @@ Current minors are Cybersecurity and Photography. Academic identifiers, grades, 
 5. Agree on results expected for both Expo presentations.
 6. Review mentor vita, letter correction and department wording.
 7. Identify business contact/cost center and route remaining signatures.
-8. Preserve pending ORSP ownership/purchasing/match decisions.
+8. Apply the clarified stipend and travel routes; finish ORSP classifications, match authorization, net disbursement and Foundation SEG decisions.
 
 ## Form consistency
 
@@ -52,6 +52,14 @@ Current minors are Cybersecurity and Photography. Academic identifiers, grades, 
 - Detailed ADHE instructions specify two pages each for mentor form/vita and student form/vita; front checklist has ambiguous combined wording. Confirm interpretation with ORSP if needed.
 - Student reviews/finalizes the narrative; references are outside the five-page double-spaced limit.
 - Travel is a justified category, not transferable GPU funding.
+
+## Funding guidance update
+
+Both student stipend sources go through the student financial-aid account. The mentor may choose one payment or installments; a $2,500 gross stipend/match scenario does not guarantee $2,500 cash for hardware. Personal purchases remain subject to financial-aid and program requirements.
+
+The revised hardware illustration assigns the GPU to student stipend funds after disbursement. Proposed mentor costs are PSU $250, cooling $100, meter $50, API $200, and tax/shipping $150. These total $750 and still need classification review. The current SURF request remains $2,000 plus the proposed $1,250 institutional match, with $0 student travel. The reserved presentation travel category cannot be redirected.
+
+The Foundation grant administrator handles SEG purchase changes and spring/Expo obligations. Confirm compatibility with SURF stipend support, including the published SEG restriction concerning paid research assistants. This is an unresolved eligibility question, not a determination that the continuation is prohibited.
 
 ## Assembly
 

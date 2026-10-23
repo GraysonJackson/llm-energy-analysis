@@ -1,6 +1,6 @@
 # Hardware and funding
 
-Planning record, October 16, 2026. Expanded equipment is not purchased. Purchases must be new. This is not purchasing authorization.
+Planning record, October 23, 2026. Expanded equipment is not purchased. Purchases must be new. This is not purchasing authorization.
 
 ## Existing inventory
 
@@ -50,41 +50,42 @@ The original SEG list had an RTX 5060 Ti 16GB at historical July prices. It rema
 | SURF plus match | Up to $4,000 | Includes travel; not an equipment allowance |
 | Combined with SEG | Up to $5,000 | Includes travel and conditional awards |
 
-The student wants to devote the full $2,500 stipend/match to equipment if permitted after disbursement. With SEG and proposed mentor costs that gives a conditional $4,250 non-travel target. Official entries stay stipends. Personal retention of parts is requested, not approved.
+University guidance confirms that both student stipend sources are applied as financial aid to the student account. Personal equipment purchases may be possible after disbursement, subject to aid and program requirements. Gross stipends are not a guaranteed cash refund: account charges, applicable aid requirements and the mentor-selected payment schedule affect usable funds. The institutional match still needs authorization. Official entries remain stipends. Institution-purchased component ownership is not established by this guidance.
 
 ## Current review allocation
 
 Checked October 16, 2026: Newegg displayed the ASRock R9700 CT 32GB at **$1,699.99**, sold and shipped by Newegg with Add to cart shown. This replaces the old $2,950 GPU allowance. It is a dated retail reference, not an institutional quote or guaranteed future availability.
 
-The current review request is $1,250 student stipend plus $750 mentor costs and $0 travel: **$2,000 SURF**, **$3,250 including proposed match**, and **$4,250 including existing SEG**. Stipends remain support for research time. Their possible use for purchases is conditional.
+The current review request is $1,250 student stipend plus $750 mentor costs and $0 travel: **$2,000 SURF**, **$3,250 including proposed match**, and **$4,250 including existing SEG**. Stipends remain support for research time. This illustration assigns the GPU entirely to stipend funds after disbursement; mentor item classifications are submitted for review.
 
 | Item | Total USD | SEG | Mentor | Student stipend | Match |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| One R9700 32GB | 1,699.99 | 0 | 250 | 1,250 | 199.99 |
+| One R9700 32GB | 1,699.99 | 0 | 0 | 1,250 | 449.99 |
 | Ryzen 9 5900XT | 300 | 300 | 0 | 0 | 0 |
 | 850W PSU | 250 | 0 | 250 | 0 | 0 |
-| Cooling | 100 | 100 | 0 | 0 | 0 |
-| Meter | 50 | 50 | 0 | 0 | 0 |
+| Cooling | 100 | 0 | 100 | 0 | 0 |
+| Meter | 50 | 0 | 50 | 0 | 0 |
 | API usage | 200 | 0 | 200 | 0 | 0 |
-| Tax/shipping | 200 | 150 | 50 | 0 | 0 |
-| Allocated total | 2,799.99 | 600 | 750 | 1,250 | 199.99 |
+| Tax/shipping | 200 | 50 | 150 | 0 | 0 |
+| Allocated total | 2,799.99 | 350 | 750 | 1,250 | 449.99 |
 
 Except for the dated GPU listing, these are allowances or spending ceilings, not quoted costs. Obtain exact new-stock SKUs and actual destination charges. No second GPU, RAM or SSD is proposed initially.
 
-This allocation leaves $400 of SEG without a revised expense assignment and $1,050.01 of the institutional stipend match outside the purchase list. That match remains proposed support for research time, not an additional equipment expense. Unassigned SEG must follow its award terms. Do not fabricate expenses to exhaust a ceiling.
+This allocation leaves $650 of SEG without a revised expense assignment and $800.01 of the proposed institutional stipend match outside the purchase list. That match remains proposed support for research time, not an additional equipment expense. Unassigned SEG must follow its award terms. Do not fabricate expenses to exhaust a ceiling.
 
-Invoice splitting across institutional/personal funds and personal retention still need an approved process. If expanded funding is unavailable, retain the RTX 3070, use approved SEG purchases for reliable metering and needed support, and reduce optional model/training scale. No extra personal contribution is assumed.
+The GPU illustration does not split its invoice with mentor funds. Mentor items and their tax/shipping allocation still need classification and purchasing review. If expanded funding or sufficient net stipend cash is unavailable, retain the RTX 3070, use approved SEG purchases for reliable metering and needed support, and reduce optional model/training scale. No extra personal contribution is assumed.
 
 The older $750 travel split is withdrawn from this review version. The campus Expo is free and does not justify those costs. Confirm an eligible SURF dissemination venue with ORSP; zero travel does not remove the presentation requirement. Spring 2028 dissemination does not extend the 2027 spending/reporting period.
 
-## ORSP decisions
+## Guidance and remaining decisions
 
-- Stipend/match use, disbursement, procurement and reimbursement.
-- Ownership/title and retention for parts installed in a personal workstation.
-- Allowable mentor-cost classification for components/API.
-- Source and authorization of institutional match.
-- SEG stacking, other-funding/cost-sharing treatment, revised purchases and spring deliverable.
-- Eligible travel and award-period rules.
+- Both student stipend sources route through the financial-aid account; the mentor determines one payment or installments. Confirm net availability and timing with Financial Aid and Student Accounts before committing to personal purchases.
+- Student travel is reserved for presenting research and cannot be redirected to equipment or API use. The current request remains $0 travel.
+- Mentor support may cover project materials, travel, or salary/fringe up to $750. Small consumable equipment may be listed under Materials and Supplies or Other Expenses. This does not approve every proposed durable component or API charge.
+- Submit the proposed PSU $250, cooling $100, meter $50, API $200, and tax/shipping $150 for specific classification review. Refresh allowances with quotes; do not exhaust a ceiling artificially.
+- Confirm the institutional match source/authorization and the purchasing/ownership process for any institution-funded components.
+- The existing SEG is administered through the UALR Foundation. Its grant administrator must confirm revised purchases, required approval, spring completion/Expo rules, and compatibility with a stipend-funded continuation. Published SEG guidelines restrict paid research assistants from requesting SEG for their paid research project; obtain an interpretation for this continuation rather than assuming either eligibility or ineligibility.
+- Confirm qualifying SURF presentation and award-period requirements.
 
 For quotes record SKU/model, vendor, new-stock condition, date/expiry, quantity, price, tax, shipping, availability, compatibility evidence, funding split and approval. A sold-out listing or MSRP is not an obtainable quote.
 

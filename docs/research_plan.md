@@ -35,7 +35,7 @@ The proposed [privacy protocol](privacy_protocol.md) documents data paths, cloud
 | S6 | Up to two cloud endpoints | Conditional on access/budget |
 | S7 | Analysis, reporting and presentations | Required outputs |
 
-The 240-trial and 480-trial suites are different dataset versions. Their counts are not interchangeable. The existing application drafts require revision for the new training scope before submission.
+The 240-trial and 480-trial suites are different dataset versions. Their counts are not interchangeable. The private application drafts reflect the staged scope; student and mentor must finalize them before submission.
 
 ## Four domains
 
@@ -79,8 +79,8 @@ Confirmed student preferences: individual project; $1,000 SEG unspent; new-only 
 
 Pending: mentor approval of expanded scope, actual quotes, model revisions/quantizations, datasets, software stack, meter uncertainty, training feasibility, eligible travel, procurement/ownership, match and remaining institutional approvals.
 
-## October 16 student clarification
+## Readiness after October 23 funding guidance
 
-The brief mentor meeting is complete; the full docket is for subsequent scope and supervision review. ORSP has not replied. The student has prior LoRA experience using PyTorch or Unsloth and is willing to use native Linux if needed. These do not establish AMD backend compatibility. Actual unattended job caps remain for pilots.
+The brief mentor meeting is complete and the mentor has given positive feedback on the docket, requesting the PAR separately. This does not establish completion of institutional routing or detailed approvals. ORSP clarified student stipends through financial aid, mentor-selected payment scheduling, and presentation-only travel. Exact mentor-item classifications, institutional match authorization, net stipend availability and Foundation SEG decisions remain pending. The student has prior LoRA experience using PyTorch or Unsloth and is willing to use native Linux if needed. These do not establish AMD backend compatibility. Actual unattended job caps remain for pilots.
 
-If expanded funding is unavailable, use the RTX 3070 and approved SEG purchases to answer the same core question on smaller models. Success requires valid traces, quality checks, documented privacy boundaries and reproducible findings, including infeasible or negative results. Freeze two supported open-weight models current at collection for the expanded study; the original model candidates remain legacy validation examples.
+If expanded funding or sufficient net stipend cash is unavailable, use the RTX 3070 and approved SEG purchases to answer the same core question on smaller models. Success requires valid traces, quality checks, documented privacy boundaries and reproducible findings, including infeasible or negative results. Freeze two supported open-weight models current at collection for the expanded study; the original model candidates remain legacy validation examples.
