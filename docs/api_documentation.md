@@ -1,6 +1,6 @@
 # Existing API reference and implementation limits
 
-Audited October 16, 2026 against e712d8d8ce7041b87d26f81542ec53fc0b41bc2c. This describes the current scaffold, not the planned architecture. Use the [implementation guide](implementation_guide.md) for target contracts and fixes.
+Originally audited October 16, 2026 against e712d8d8ce7041b87d26f81542ec53fc0b41bc2c. The Shelly and Ollama connection entries reflect the November workstation setup changes. Use the [implementation guide](implementation_guide.md) for the remaining research requirements.
 
 ## PowerMonitor
 
@@ -10,8 +10,9 @@ Constructor: PowerMonitor(ip_address, polling_interval=1.0, timeout=5).
 
 | Method | Current behavior |
 | --- | --- |
-| test_connection() | Calls legacy /status and returns a boolean |
-| get_current_power() | Parses legacy meters[0].power or top-level apower; returns float or None |
+| from_config(settings) | Reads `SHELLY_IP` from the environment or local `.env`, with `ip_address` as a fallback |
+| test_connection() | Requires a usable power reading |
+| get_current_power() | Tries `Switch.GetStatus` and legacy `/status`, then reuses the working endpoint. Returns watts or `None`. |
 | start_monitoring() | Resets state and sets flags; does not start a background collector |
 | record_measurement() | Explicitly obtains and appends one measurement |
 | stop_monitoring() | Stops session and integrates samples already in memory |
@@ -22,17 +23,17 @@ Constructor: PowerMonitor(ip_address, polling_interval=1.0, timeout=5).
 
 When samples exist, stop_monitoring returns duration_sec, measurement_count, avg_power_w, min_power_w, max_power_w, energy_joules and energy_wh. With no samples it returns only duration_sec/measurement_count. A no-sample summary is not 0J evidence.
 
-The thread helper is a starting point, not a validated lifecycle: boundary samples, exceptions, synchronization, finite shutdown, gaps and field provenance need the guide's changes. Generation-specific meter adapters are not implemented.
+The thread helper still needs validation for boundary samples, exceptions, synchronization, finite shutdown, gaps, and field provenance. The setup check verifies only a wattage read.
 
 ## LocalLLMBenchmark
 
 Module: src/local_llm_benchmark.py.
 
-Constructor takes host, temperature, top_p and timeout. The current constructor does not retain the client it creates; module-level Ollama calls do not reliably honor the configured client.
+The constructor takes host, temperature, top_p and timeout. It keeps the configured Ollama client for model listing and generation.
 
 | Method | Current behavior/limit |
 | --- | --- |
-| test_connection(), list_models() | Module-level SDK calls; response-shape compatibility needs testing |
+| test_connection(), list_models() | Read configured server model metadata through the retained client |
 | count_tokens(text, model) | len(text)//4 approximation, unsuitable for research token metrics |
 | generate(model, prompt, max_tokens=1000) | Streams output; approximate counts; timeout can still lead to success=True |
 | benchmark_prompt(model, prompt_data, power_monitor=None) | Starts/stops meter session without polling continuously |

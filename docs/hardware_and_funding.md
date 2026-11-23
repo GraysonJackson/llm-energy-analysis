@@ -1,23 +1,24 @@
 # Hardware and funding
 
-Planning record, October 23, 2026. Expanded equipment is not purchased. Purchases must be new. This is not purchasing authorization.
+The November 22, 2026 inventory reflects the installed pilot workstation. The October 23 expanded SURF plan below is retained for funding history.
 
 ## Existing inventory
 
 | Component | Confirmed |
 | --- | --- |
-| CPU | Ryzen 5 5600G, 6 cores/12 threads |
-| GPU | RTX 3070; record exact model and usable VRAM in inventory |
-| Board | ASRock B550 Phantom Gaming 4/ac |
-| BIOS | P2.10 |
-| RAM | 32GB; module layout/speed to record |
-| SSD | WD_BLACK SN770 1TB, 408.8GB free when checked |
-| PSU | Replacement planned; exact existing model unknown |
-| Case/cooling | Verify final card, cable, cooler and PSU fit before purchase |
+| CPU | Ryzen 5 5600G, 6 cores and 12 threads. No CPU purchase. |
+| GPU | NVIDIA GeForce RTX 5060 Ti, 16 GB. Windows driver version `32.0.16.2124`. |
+| Board and BIOS | Last recorded as ASRock B550 Phantom Gaming 4/ac and P2.10. |
+| RAM | 32 GB across four modules. Speed to record. |
+| SSD | Last recorded as WD_BLACK SN770 1 TB. Free space to record before data collection. |
+| PSU and cooling | Record installed part models before the pilot. |
+| Meter | Installed Shelly smart plug. Exact model, firmware and wattage readings to verify during setup. |
 
 Keep private device identifiers/location in local inventory.
 
-## Upgrade targets
+## October expanded SURF upgrade scenario
+
+This scenario predates the installed RTX 5060 Ti and the decision to retain the Ryzen 5 5600G. Its line items and prices document the earlier proposal.
 
 | Item | Target | Rationale/check |
 | --- | --- | --- |
@@ -35,7 +36,7 @@ ASRock lists 5900XT support on this board with BIOS P3.41. Current P2.10 does no
 
 The primary graphics slot runs Gen3 x16 with Cezanne and Gen4 x16 with Vermeer. The second full-length slot is Gen3 x4. One R9700 is the primary plan; a second card would need a separate scoped decision and does not create automatically unified memory. The board has one storage M.2 socket.
 
-The original SEG list had an RTX 5060 Ti 16GB at historical July prices. It remains history; obtain revised approval where required for the AMD plan.
+The original SEG list specified an RTX 5060 Ti 16GB at historical July prices. That GPU model is now installed in the pilot system.
 
 ## Funding categories
 

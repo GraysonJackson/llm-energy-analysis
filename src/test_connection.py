@@ -2,14 +2,17 @@
 Connection Test Utility
 
 Quick utility to test all system connections before running full benchmarks.
-Tests: Shelly Smart Plug, Ollama, and Cloud APIs
+Checks Shelly wattage and available Ollama models. Cloud calls are opt-in.
 """
 
+import argparse
 import sys
 import yaml
 from power_monitor import PowerMonitor
 from local_llm_benchmark import LocalLLMBenchmark
 from cloud_benchmark import CloudBenchmark
+
+__test__ = False  # This script checks live devices when invoked directly.
 
 
 def test_shelly(config):
@@ -18,33 +21,18 @@ def test_shelly(config):
     print("TESTING SHELLY SMART PLUG")
     print("="*60)
     
-    shelly_config = config.get('shelly', {})
-    ip_address = shelly_config.get('ip_address', '192.168.1.100')
-    
-    print(f"\nConnecting to: {ip_address}")
-    
-    monitor = PowerMonitor(
-        ip_address=ip_address,
-        polling_interval=shelly_config.get('polling_interval', 1.0),
-        timeout=shelly_config.get('timeout', 5)
-    )
-    
-    if monitor.test_connection():
-        power = monitor.get_current_power()
-        if power is not None:
-            print(f"✅ Connected successfully!")
-            print(f"   Current power: {power:.2f} W")
-            return True
-        else:
-            print("⚠️  Connected but failed to read power")
-            return False
-    else:
-        print("❌ Connection failed!")
-        print("\nTroubleshooting:")
-        print(f"  1. Check IP address in config.yaml: {ip_address}")
-        print("  2. Ensure plug is on same network")
-        print("  3. Try accessing http://" + ip_address + "/status in browser")
+    try:
+        monitor = PowerMonitor.from_config(config.get('shelly', {}))
+    except ValueError as exc:
+        print(exc)
         return False
+
+    power = monitor.get_current_power()
+    if power is None:
+        print('No usable power reading. Check SHELLY_IP in .env and plug access from this network.')
+        return False
+    print(f'Current power: {power:.2f} W')
+    return True
 
 
 def test_ollama(config):
@@ -61,7 +49,8 @@ def test_ollama(config):
     benchmark = LocalLLMBenchmark(
         host=host,
         temperature=ollama_config.get('temperature', 0.7),
-        top_p=ollama_config.get('top_p', 0.9)
+        top_p=ollama_config.get('top_p', 0.9),
+        timeout=10
     )
     
     if benchmark.test_connection():
@@ -70,13 +59,19 @@ def test_ollama(config):
         print(f"   Available models: {len(models)}")
         for model in models:
             print(f"     - {model}")
+        installed = set(models)
+        missing = [model for model in ollama_config.get('models', [])
+                   if model not in installed and f'{model}:latest' not in installed]
+        if missing:
+            print('Missing configured Ollama models: ' + ', '.join(missing))
+            return False
         return True
     else:
         print("❌ Connection failed!")
         print("\nTroubleshooting:")
         print("  1. Install Ollama: https://ollama.ai")
         print("  2. Start Ollama service")
-        print("  3. Pull models: ollama pull llama3")
+        print("  3. Check the configured model tags in config.yaml")
         print("  4. Check status: ollama list")
         return False
 
@@ -121,6 +116,11 @@ def test_cloud_apis(config):
 
 def main():
     """Main test function."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--shelly-only', action='store_true', help='Read the plug only')
+    mode.add_argument('--cloud', action='store_true', help='Also probe enabled cloud APIs (may incur charges)')
+    args = parser.parse_args()
     print("\n" + "="*60)
     print("SYSTEM CONNECTION TEST")
     print("LLM Energy Analysis - Grant 2026")
@@ -128,18 +128,18 @@ def main():
     
     # Load config
     try:
-        with open('config.yaml', 'r') as f:
+        with open('config.yaml', encoding='utf-8') as f:
             config = yaml.safe_load(f)
     except Exception as e:
         print(f"\n❌ Failed to load config.yaml: {e}")
         sys.exit(1)
     
     # Run tests
-    results = {
-        'shelly': test_shelly(config),
-        'ollama': test_ollama(config),
-        'cloud': test_cloud_apis(config)
-    }
+    results = {'shelly': test_shelly(config)}
+    if not args.shelly_only:
+        results['ollama'] = test_ollama(config)
+    if args.cloud:
+        results['cloud'] = test_cloud_apis(config)
     
     # Summary
     print("\n" + "="*60)
@@ -153,9 +153,7 @@ def main():
     all_pass = all(results.values())
     
     if all_pass:
-        print("\n✅ All systems operational!")
-        print("\nYou can now run benchmarks:")
-        print("  python src/run_benchmark.py")
+        print("\nRequested connection checks passed. See docs/setup_guide.md for pilot prerequisites.")
     else:
         print("\n⚠️  Some systems need attention.")
         print("Fix the issues above before running benchmarks.")

@@ -31,21 +31,18 @@ Grayson Jackson is the student researcher at the University of Arkansas at Littl
 6. Investigate a small language model trained from scratch as an exploratory extension.
 7. Compare local latency, usage and quality with up to two cloud endpoints. Cloud server electricity remains an estimate or scenario.
 
-Training and the expanded experiment system are proposed work, not already implemented features. The RTX 3070 remains available for baseline work and is the core-study fallback if additional hardware funding is unavailable. No extra personal contribution is assumed.
+Training and the expanded experiment system are proposed work. The original RTX 3070 configuration is the historical baseline. The installed RTX 5060 Ti is the starting point for the first local pilot.
 
 ## Hardware
 
-| Component | Existing baseline | Proposed upgrade |
-| --- | --- | --- |
-| GPU | RTX 3070 | One new AMD Radeon AI PRO R9700 32GB |
-| CPU | Ryzen 5 5600G | New Ryzen 9 5900XT, subject to BIOS support |
-| Motherboard | ASRock B550 Phantom Gaming 4/ac, BIOS P2.10 | Retain; verify CPU update path |
-| RAM | 32GB | Retain initially; measure additional training need |
-| SSD | WD_BLACK SN770 1TB, 408.8GB free when checked | Retain initially |
-| PSU | Replacement needed | Quality 850W ATX 3.1 target with appropriate native connector |
-| Meter | Still needed | Validated wall-power meter; Shelly candidate |
+| Component | Current pilot setup |
+| --- | --- |
+| GPU | NVIDIA GeForce RTX 5060 Ti, 16 GB |
+| CPU | Existing Ryzen 5 5600G, 6 cores and 12 threads. No CPU purchase. |
+| RAM | 32 GB |
+| Meter | Shelly smart plug installed. Web UI is reachable from the workstation network as reported by the researcher. Wattage is pending validation. |
 
-These are targets, not purchased equipment. A 32GB GPU does not guarantee arbitrary model sizes, context lengths or training methods.
+The [hardware record](docs/hardware_and_funding.md) distinguishes this workstation from earlier SURF funding scenarios. The [setup guide](docs/setup_guide.md#first-check-on-the-installed-workstation) has the first commands to run.
 
 ## Current implementation status
 
@@ -53,7 +50,7 @@ The Python files are a starting scaffold. No validated benchmark results are com
 
 - Collect continuous power samples during generation. The current local path starts/stops a session without sampling it.
 - Replace approximate local token counts with runtime-reported counts.
-- Retain and use the configured Ollama client.
+- Verify model placement and confirm completion metadata from the configured Ollama client.
 - Calculate incremental energy using an explicit matched baseline.
 - Replace historical cloud prices and unsupported fixed energy factors with dated sources or unavailable values.
 - Preserve outputs/errors for quality review; current CSV exports discard important fields.
@@ -61,7 +58,7 @@ The Python files are a starting scaffold. No validated benchmark results are com
 - Revise plots/report wording that implies measured cloud energy or predetermined privacy-energy conclusions.
 - Implement dataset splits, training, scoring, manifests, resume logic and the expanded matrix.
 
-The implementation guide describes fixes and verification. This documentation update does not change runtime code.
+The implementation guide describes the remaining fixes and verification.
 
 ## Inspect the scaffold
 

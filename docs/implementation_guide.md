@@ -70,9 +70,9 @@ Read the named functions before editing. The current defects are concrete implem
 | --- | --- | --- | --- |
 | P0 | src/local_llm_benchmark.py, benchmark_prompt | Starts/stops monitoring without continuous sampling | Collector runs across generation; validated trace exists |
 | P0 | src/power_monitor.py, start_monitoring | Sets flags and resets a list only | Explicit collection lifecycle or clearly named session-only method |
-| P0 | src/power_monitor.py, get_current_power | Assumes /status and legacy response shapes | Device-generation adapter and validated RPC response |
+| P0 | src/power_monitor.py, get_current_power | Read-only RPC and legacy fallback prepared | Confirm live payload and meter behavior on the installed plug |
 | P0 | LocalLLMBenchmark.count_tokens/generate | Estimates tokens with character length | Completion metadata and explicit token provenance |
-| P0 | LocalLLMBenchmark.__init__ | Constructs a client without retaining it | Store client and use it for every method |
+| P0 | LocalLLMBenchmark.__init__ | Retains the configured client | Confirm the installed runtime, completion metadata and actual GPU placement |
 | P0 | LocalLLMBenchmark.generate | Timeout can stop a partial response then mark success | Completed/partial/timeout status and terminal metadata required |
 | P0 | run_benchmark/run_baseline_measurement | Baseline collected once, not linked/subtracted | Baseline IDs and gross/incremental calculations |
 | P0 | Local/cloud export_to_csv | Drops responses, errors and useful metadata | Lossless JSONL/raw references plus analysis CSV |

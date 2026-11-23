@@ -278,18 +278,16 @@ def main():
     print("\n🔧 Initializing components...")
     
     # Power monitor
-    shelly_config = config.get('shelly', {})
-    power_monitor = PowerMonitor(
-        ip_address=shelly_config.get('ip_address', '192.168.1.100'),
-        polling_interval=shelly_config.get('polling_interval', 1.0),
-        timeout=shelly_config.get('timeout', 5)
-    )
+    try:
+        power_monitor = PowerMonitor.from_config(config.get('shelly', {}))
+    except ValueError as exc:
+        sys.exit(str(exc))
     
     # Test Shelly connection
     print("\n🔌 Testing Shelly Smart Plug connection...")
     if not power_monitor.test_connection():
         print("❌ Failed to connect to Shelly plug!")
-        print(f"   Check IP address: {shelly_config.get('ip_address')}")
+        print("   Check SHELLY_IP in .env and the plug's network access")
         response = input("\nContinue without power monitoring? (y/n): ")
         if response.lower() != 'y':
             sys.exit(1)

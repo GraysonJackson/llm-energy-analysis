@@ -1,0 +1,151 @@
+{
+  "dataset_version": "paired-pilot-v1",
+  "split": "pilot",
+  "status": "draft_unrun",
+  "source": "Authored synthetic fixtures. Each item is an independent pilot source group.",
+  "target": "Each eligible model receives the same item prompt and fresh copy of its workspace files.",
+  "items": [
+    {
+      "item_id": "P-D01",
+      "track": "direct",
+      "domain": "standalone_coding",
+      "task_type": "implement_function",
+      "difficulty": "medium",
+      "source_group_id": "P-D01",
+      "scoring_rule_id": "pilot-v1/P-D01",
+      "prompt": "Implement a Python function coverage(intervals) that returns the number of integer time units covered by the union of half-open intervals [start, end). Inputs are an unsorted list of integer pairs. Endpoints can be negative. Empty intervals are allowed and contribute nothing; raise ValueError for a reversed interval. Do not change the input. For example, [(2, 5), (4, 7)] covers 5 units. Return only the Python function and any imports it needs."
+    },
+    {
+      "item_id": "P-D02",
+      "track": "direct",
+      "domain": "email_and_workplace_writing",
+      "task_type": "reply_to_thread",
+      "difficulty": "routine",
+      "source_group_id": "P-D02",
+      "scoring_rule_id": "pilot-v1/P-D02",
+      "prompt": "Write a reply from Riley to Casey in 45–90 words, including a greeting and sign-off. Casey asks whether Friday's handoff can happen at 2:00 p.m. and whether the accessibility checklist is ready. Riley can attend at 2:00 p.m. The checklist is still under review, and there is no confirmed completion date. Ask Casey to send the latest agenda. Use a friendly professional tone. Return just the email."
+    },
+    {
+      "item_id": "P-D03",
+      "track": "direct",
+      "domain": "document_qa",
+      "task_type": "resolve_revision",
+      "difficulty": "medium",
+      "source_group_id": "P-D03",
+      "scoring_rule_id": "pilot-v1/P-D03",
+      "prompt": "Use only the following excerpts. [A] April 3 draft: \"Volunteer reimbursements must be submitted within 30 days. Finance may approve exceptions.\" [B] April 18 revision, effective May 1, supersedes [A]: \"Volunteer reimbursements must be submitted within 14 calendar days. The policy grants no exceptions. Submit the receipt and activity ID together.\" [C] May 3 FAQ: \"Parking receipts may be submitted. The reimbursement policy does not set a parking cap.\" A volunteer incurred a parking expense on May 6. What deadline rule applies, what should the volunteer submit, and can you confirm whether a $40 receipt exceeds a cap? Cite the excerpt labels and keep the answer under 100 words."
+    },
+    {
+      "item_id": "P-D04",
+      "track": "direct",
+      "domain": "summarization",
+      "task_type": "project_update",
+      "difficulty": "routine",
+      "source_group_id": "P-D04",
+      "scoring_rule_id": "pilot-v1/P-D04",
+      "prompt": "Summarize these meeting notes in exactly three bullets. Each bullet should cover a decision, owner, or unresolved issue. Notes: The team approved a 12-unit pilot and postponed any expansion decision. Morgan will request the pilot units on Monday. The training room is reserved for June 14. The vendor has yet to confirm a delivery date. Lee suggested using June 7 as a target, but the team did not adopt it. Use only the supplied facts."
+    },
+    {
+      "item_id": "P-D05",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "task_type": "convert_receipt_to_json",
+      "difficulty": "medium",
+      "source_group_id": "P-D05",
+      "scoring_rule_id": "pilot-v1/P-D05",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Receipt: \"Order NX-041. Currency USD. Item total USD 19.80. Paid via card. Tax breakdown unavailable. Card charge USD 21.14.\" Return only valid JSON."
+    },
+    {
+      "item_id": "P-D06",
+      "track": "direct",
+      "domain": "general_reasoning",
+      "task_type": "insufficient_information",
+      "difficulty": "medium",
+      "source_group_id": "P-D06",
+      "scoring_rule_id": "pilot-v1/P-D06",
+      "prompt": "A volunteer team sorted 96 boxes in a day. Morning and afternoon shifts handled all boxes, every box was counted once, and the morning shift handled 12 more boxes than the afternoon shift. How many boxes did each shift handle? Can you determine which shift sorted faster? Explain briefly using only these facts."
+    },
+    {
+      "item_id": "P-D07",
+      "track": "direct",
+      "domain": "synthetic_defensive_log_analysis",
+      "task_type": "build_timeline",
+      "difficulty": "medium",
+      "source_group_id": "P-D07",
+      "scoring_rule_id": "pilot-v1/P-D07",
+      "prompt": "Review these invented audit records. All times are UTC. [L1] 09:04:10 account=member7 action=login result=fail src=desk12. [L2] 09:04:24 account=member7 action=login result=success src=desk12. [L3] 09:06:01 account=backup-svc action=read object=shared/report.csv src=backup01 result=success. [L4] 09:06:02 scheduler=backup01 job=hourly-backup action=start. In at most 120 words, state the supported timeline, whether the evidence establishes that member7 read the file, and one additional evidence source you would check. Cite record IDs."
+    },
+    {
+      "item_id": "P-A01",
+      "track": "agentic",
+      "domain": "agentic_coding",
+      "task_type": "bug_fix",
+      "difficulty": "routine",
+      "source_group_id": "P-A01",
+      "scoring_rule_id": "pilot-v1/P-A01",
+      "prompt": "Fix the cart total bug reported for items with an explicit zero quantity. An omitted quantity should still count as one. Leave subtotal(items) callable with the same signature. Add a public regression test, run the available tests, and summarize the change. Use the Python standard library.",
+      "workspace_files": {
+        "cart.py": "def subtotal(items):\n    return sum(row[\"price_cents\"] * (row.get(\"quantity\") or 1) for row in items)\n",
+        "test_cart.py": "import unittest\nfrom cart import subtotal\n\n\nclass CartTests(unittest.TestCase):\n    def test_mixed_cart(self):\n        self.assertEqual(subtotal([{\"price_cents\": 100}, {\"price_cents\": 50, \"quantity\": 2}]), 200)\n"
+      }
+    },
+    {
+      "item_id": "P-A02",
+      "track": "agentic",
+      "domain": "agentic_coding",
+      "task_type": "small_feature",
+      "difficulty": "medium",
+      "source_group_id": "P-A02",
+      "scoring_rule_id": "pilot-v1/P-A02",
+      "prompt": "Extend summarize(rows) with an optional keyword-only argument group_by. Keep summarize(rows) returning totals keyed by SKU. With group_by=\"zone\", return nested dictionaries keyed by zone and then SKU. A row with no zone belongs to \"unassigned\". Accept only None and \"zone\"; raise ValueError for other values. Quantities are integers and rows must remain unchanged. Add public tests and run them. Use the Python standard library.",
+      "workspace_files": {
+        "inventory.py": "def summarize(rows):\n    totals = {}\n    for row in rows:\n        sku = row[\"sku\"]\n        totals[sku] = totals.get(sku, 0) + row[\"quantity\"]\n    return totals\n",
+        "test_inventory.py": "import unittest\nfrom inventory import summarize\n\n\nclass InventoryTests(unittest.TestCase):\n    def test_totals_by_sku(self):\n        rows = [{\"sku\": \"A\", \"quantity\": 2}, {\"sku\": \"A\", \"quantity\": 1}]\n        self.assertEqual(summarize(rows), {\"A\": 3})\n"
+      }
+    },
+    {
+      "item_id": "P-A03",
+      "track": "agentic",
+      "domain": "agentic_coding",
+      "task_type": "test_authoring",
+      "difficulty": "medium",
+      "source_group_id": "P-A03",
+      "scoring_rule_id": "pilot-v1/P-A03",
+      "prompt": "Write unittest tests for parse_duration according to its docstring. Cover normal behavior and boundary or invalid cases. Leave duration.py unchanged. Run the test suite and report what you covered. No third-party dependencies are needed.",
+      "workspace_files": {
+        "duration.py": "import re\n\n\ndef parse_duration(value):\n    \"\"\"Convert a string like '15m' or '2h' to minutes.\n\n    Require ASCII digits followed by a lowercase m or h. Zero is allowed.\n    Reject whitespace, signs, decimals, missing units, and other formats\n    with ValueError.\n    \"\"\"\n    if not re.fullmatch(r\"[0-9]+[mh]\", value):\n        raise ValueError(\"invalid duration\")\n    count = int(value[:-1])\n    return count * (60 if value[-1] == \"h\" else 1)\n"
+      }
+    },
+    {
+      "item_id": "P-A04",
+      "track": "agentic",
+      "domain": "agentic_coding",
+      "task_type": "refactor_and_explain",
+      "difficulty": "hard",
+      "source_group_id": "P-A04",
+      "scoring_rule_id": "pilot-v1/P-A04",
+      "prompt": "Read the notification module and explain what determines output order. Refactor dispatches(events) to remove the duplicated channel loop while preserving the existing public behavior. Add a regression test that exercises ordering and mixed channels. Run the tests and summarize the refactor. Use the Python standard library.",
+      "workspace_files": {
+        "notifications.py": "def dispatches(events):\n    actions = []\n    for event in events:\n        if event[\"status\"] == \"ready\":\n            for channel in event[\"channels\"]:\n                if channel == \"email\":\n                    actions.append((event[\"id\"], channel, \"send\"))\n                elif channel == \"sms\":\n                    actions.append((event[\"id\"], channel, \"send\"))\n        elif event[\"status\"] == \"blocked\":\n            for channel in event[\"channels\"]:\n                if channel == \"email\":\n                    actions.append((event[\"id\"], channel, \"hold\"))\n                elif channel == \"sms\":\n                    actions.append((event[\"id\"], channel, \"hold\"))\n    return actions\n",
+        "test_notifications.py": "import unittest\nfrom notifications import dispatches\n\n\nclass NotificationTests(unittest.TestCase):\n    def test_unrecognized_status(self):\n        self.assertEqual(dispatches([{\"id\": 7, \"status\": \"archived\", \"channels\": [\"email\"]}]), [])\n"
+      }
+    },
+    {
+      "item_id": "P-A05",
+      "track": "agentic",
+      "domain": "agentic_coding",
+      "task_type": "project_setup",
+      "difficulty": "medium",
+      "source_group_id": "P-A05",
+      "scoring_rule_id": "pilot-v1/P-A05",
+      "prompt": "Get the package CLI working from the project root as python -m receipt_tool sample.csv. Print the total integer cents followed by a newline. Preserve total_cents(rows) and its behavior. Add or update README.md with the exact run command and expected output for the sample. Verify the command. Use only the Python standard library.",
+      "workspace_files": {
+        "receipt_tool/__init__.py": "",
+        "receipt_tool/__main__.py": "import csv\nimport sys\n\nfrom totals import total_cents\n\n\ndef main():\n    with open(sys.argv[1], encoding=\"utf-8\", newline=\"\") as source:\n        print(total_cents(csv.DictReader(source)))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+        "receipt_tool/totals.py": "def total_cents(rows):\n    return sum(int(row[\"price_cents\"]) for row in rows)\n",
+        "sample.csv": "item,price_cents\nPaper,325\nPen,175\n",
+        "README.md": "# Receipt totals\n\nA small command-line tool for receipt CSV files with integer prices in cents.\n"
+      }
+    }
+  ]
+}

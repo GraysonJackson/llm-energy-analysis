@@ -1,0 +1,477 @@
+{
+  "dataset_version": "paired-pilot-v1",
+  "scorer_version": "pilot-v1",
+  "status": "draft_unreviewed",
+  "visibility": "Evaluator input only. Do not mount this file into an agent workspace, send it to a model, or use it as training data.",
+  "criteria": {
+    "P-D01": {
+      "required": [
+        "The function computes union length for sorted or unsorted intervals and does not mutate the input.",
+        "It raises ValueError for a reversed interval, including when other intervals are valid."
+      ],
+      "automatic_failure": [
+        "Wrong output or exception behavior on any required test case.",
+        "Returning prose or Markdown that cannot be recovered as the requested Python function under the frozen extraction rule."
+      ],
+      "verification": {
+        "function": "coverage",
+        "cases": [
+          {
+            "input": [],
+            "output": 0
+          },
+          {
+            "input": [
+              [
+                2,
+                5
+              ],
+              [
+                4,
+                7
+              ]
+            ],
+            "output": 5
+          },
+          {
+            "input": [
+              [
+                8,
+                10
+              ],
+              [
+                -3,
+                0
+              ],
+              [
+                0,
+                2
+              ],
+              [
+                -2,
+                1
+              ],
+              [
+                9,
+                9
+              ]
+            ],
+            "output": 7
+          },
+          {
+            "input": [
+              [
+                5,
+                5
+              ],
+              [
+                -2,
+                -2
+              ]
+            ],
+            "output": 0
+          },
+          {
+            "input": [
+              [
+                0,
+                1
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                0,
+                1
+              ]
+            ],
+            "output": 3
+          },
+          {
+            "input": [
+              [
+                0,
+                3
+              ],
+              [
+                6,
+                2
+              ]
+            ],
+            "exception": "ValueError"
+          }
+        ],
+        "assert_input_unchanged": true
+      }
+    },
+    "P-D02": {
+      "required": [
+        "Confirms Riley can attend Friday at 2:00 p.m.",
+        "Says the checklist is still under review with no confirmed completion date.",
+        "Requests Casey's latest agenda.",
+        "Uses a friendly professional greeting and sign-off in the requested length."
+      ],
+      "automatic_failure": [
+        "Promises a completion date or claims the checklist is ready.",
+        "Changes the agreed time or omits the main confirmation/request."
+      ],
+      "optional_score": "Minor wording edits are acceptable. Score tone and concision separately from factual adequacy."
+    },
+    "P-D03": {
+      "required": [
+        "Applies the 14-calendar-day rule from [B] and states that [B] supersedes [A].",
+        "Requests the receipt and activity ID together, with [B] cited.",
+        "Uses [C] for parking eligibility and says the supplied text cannot establish whether $40 exceeds a cap."
+      ],
+      "automatic_failure": [
+        "Uses 30 days or implies exceptions survive the revision.",
+        "Invents a cap or treats the missing cap as a guarantee of reimbursement."
+      ]
+    },
+    "P-D04": {
+      "required": [
+        "Explains the approved 12-unit pilot and deferred expansion.",
+        "States Morgan's Monday request and the June 14 room reservation.",
+        "Indicates that the delivery date is unconfirmed. June 7 may be omitted or identified as an unadopted suggestion.",
+        "Uses exactly three bullets."
+      ],
+      "automatic_failure": [
+        "Treats June 7 as confirmed or implies expansion was approved.",
+        "Invents an owner, commitment or delivery date."
+      ]
+    },
+    "P-D05": {
+      "required": [
+        "Returns one valid JSON object with the requested keys and value types.",
+        "Uses null for the unreported tax."
+      ],
+      "automatic_failure": [
+        "Fabricates tax from the difference between subtotal and charge.",
+        "Wrong values, keys, types, or additional text outside the JSON object."
+      ],
+      "verification": {
+        "expected_json": {
+          "order_id": "NX-041",
+          "currency": "USD",
+          "subtotal_cents": 1980,
+          "tax_cents": null,
+          "total_cents": 2114,
+          "paid": true
+        }
+      }
+    },
+    "P-D06": {
+      "required": [
+        "Morning handled 54 boxes and afternoon handled 42.",
+        "Explains why throughput cannot be compared without shift durations or direct rate evidence."
+      ],
+      "automatic_failure": [
+        "Interprets a higher count as a faster rate or uses inconsistent counts."
+      ]
+    },
+    "P-D07": {
+      "required": [
+        "Orders the failed and successful member7 logins, then the service-account read and scheduler start.",
+        "States that the records attribute the file read to backup-svc and do not establish a member7 file read.",
+        "Cites relevant record IDs and identifies one appropriate source for attribution, such as session-correlated file audit events."
+      ],
+      "automatic_failure": [
+        "Attributes the read to member7 or claims the scheduler event proves why the earlier read happened.",
+        "Invents evidence or a confirmed compromise."
+      ]
+    },
+    "P-A01": {
+      "required": [
+        "subtotal preserves its signature and handles zero, absent, and positive quantities.",
+        "A meaningful regression test is added and executed."
+      ],
+      "automatic_failure": [
+        "Zero adds a nonzero charge or the default for omitted quantity changes.",
+        "The solution alters the price for unrelated inputs or defeats the existing tests."
+      ],
+      "verification": {
+        "module": "cart",
+        "function": "subtotal",
+        "cases": [
+          {
+            "input": [
+              {
+                "price_cents": 250,
+                "quantity": 0
+              }
+            ],
+            "output": 0
+          },
+          {
+            "input": [
+              {
+                "price_cents": 100
+              },
+              {
+                "price_cents": 50,
+                "quantity": 2
+              },
+              {
+                "price_cents": 999,
+                "quantity": 0
+              }
+            ],
+            "output": 200
+          },
+          {
+            "input": [],
+            "output": 0
+          }
+        ]
+      }
+    },
+    "P-A02": {
+      "required": [
+        "Preserves old calls, supports keyword grouping by zone including missing zones, and rejects other modes.",
+        "New public tests are meaningful and executed."
+      ],
+      "automatic_failure": [
+        "Regresses the old signature or mutates caller data.",
+        "Incorrectly combines SKUs across zones, drops unassigned rows, or accepts unsupported grouping."
+      ],
+      "verification": {
+        "module": "inventory",
+        "function": "summarize",
+        "cases": [
+          {
+            "input": [
+              {
+                "sku": "A",
+                "quantity": 2,
+                "zone": "north"
+              },
+              {
+                "sku": "A",
+                "quantity": 3,
+                "zone": "south"
+              },
+              {
+                "sku": "A",
+                "quantity": 1
+              },
+              {
+                "sku": "B",
+                "quantity": 0,
+                "zone": "north"
+              }
+            ],
+            "kwargs": {
+              "group_by": "zone"
+            },
+            "output": {
+              "north": {
+                "A": 2,
+                "B": 0
+              },
+              "south": {
+                "A": 3
+              },
+              "unassigned": {
+                "A": 1
+              }
+            }
+          },
+          {
+            "input": [
+              {
+                "sku": "A",
+                "quantity": 2,
+                "zone": "north"
+              },
+              {
+                "sku": "A",
+                "quantity": 3,
+                "zone": "south"
+              }
+            ],
+            "output": {
+              "A": 5
+            }
+          },
+          {
+            "input": [],
+            "kwargs": {
+              "group_by": "zone"
+            },
+            "output": {}
+          },
+          {
+            "input": [],
+            "kwargs": {
+              "group_by": "rack"
+            },
+            "exception": "ValueError"
+          }
+        ],
+        "assert_input_unchanged": true,
+        "group_by_must_be_keyword_only": true
+      }
+    },
+    "P-A03": {
+      "required": [
+        "Unchanged production parser. Submitted unittest tests pass on the original implementation.",
+        "The tests reject all specified mutations when each mutant replaces the original in its own scoring copy."
+      ],
+      "automatic_failure": [
+        "Changes duration.py or writes tests that pass despite a required mutation."
+      ],
+      "verification": {
+        "unchanged_file": "duration.py",
+        "mutations": [
+          {
+            "purpose": "Missing hours conversion",
+            "replace": "return count * (60 if value[-1] == \"h\" else 1)",
+            "with": "return count"
+          },
+          {
+            "purpose": "Rejects valid zero",
+            "replace": "count = int(value[:-1])",
+            "with": "count = int(value[:-1])\n    if count == 0:\n        raise ValueError(\"zero\")"
+          },
+          {
+            "purpose": "Accepts whitespace",
+            "replace": "    if not re.fullmatch",
+            "with": "    value = value.strip()\n    if not re.fullmatch"
+          },
+          {
+            "purpose": "Accepts Unicode digits",
+            "replace": "[0-9]+[mh]",
+            "with": "\\d+[mh]"
+          }
+        ]
+      }
+    },
+    "P-A04": {
+      "required": [
+        "Uses one shared channel loop, preserving input event order, each event's channel order, and duplicate supported channels.",
+        "Ignores unsupported statuses and channels; preserves send/hold mapping.",
+        "Explains the order rule and adds and runs a regression test."
+      ],
+      "automatic_failure": [
+        "Drops duplicates, reorders actions, changes flags, or emits actions for unsupported inputs.",
+        "Keeps duplicated channel traversal."
+      ],
+      "verification": {
+        "module": "notifications",
+        "function": "dispatches",
+        "cases": [
+          {
+            "input": [
+              {
+                "id": 1,
+                "status": "ready",
+                "channels": [
+                  "sms",
+                  "pager",
+                  "email",
+                  "sms"
+                ]
+              },
+              {
+                "id": 2,
+                "status": "blocked",
+                "channels": [
+                  "email",
+                  "sms"
+                ]
+              },
+              {
+                "id": 3,
+                "status": "archived",
+                "channels": [
+                  "email"
+                ]
+              }
+            ],
+            "output_tuples": [
+              [
+                1,
+                "sms",
+                "send"
+              ],
+              [
+                1,
+                "email",
+                "send"
+              ],
+              [
+                1,
+                "sms",
+                "send"
+              ],
+              [
+                2,
+                "email",
+                "hold"
+              ],
+              [
+                2,
+                "sms",
+                "hold"
+              ]
+            ]
+          },
+          {
+            "input": [],
+            "output_tuples": []
+          }
+        ]
+      }
+    },
+    "P-A05": {
+      "required": [
+        "The module invocation succeeds from project root for the supplied CSV and a second compatible CSV.",
+        "total_cents remains importable and supports its existing row format.",
+        "README documents the exact command and sample output."
+      ],
+      "automatic_failure": [
+        "Hardcodes sample.csv or 500, requires extra dependencies, or breaks the public function."
+      ],
+      "verification": {
+        "cli_cases": [
+          {
+            "args": [
+              "-m",
+              "receipt_tool",
+              "sample.csv"
+            ],
+            "expected_stdout": "500\n",
+            "expected_exit_code": 0
+          },
+          {
+            "args": [
+              "-m",
+              "receipt_tool",
+              "other.csv"
+            ],
+            "fixture": {
+              "path": "other.csv",
+              "text": "item,price_cents\nInk,90\nFolder,60\n"
+            },
+            "expected_stdout": "150\n",
+            "expected_exit_code": 0
+          }
+        ],
+        "function_case": {
+          "module": "receipt_tool.totals",
+          "function": "total_cents",
+          "input": [
+            {
+              "price_cents": "70"
+            },
+            {
+              "price_cents": "-30"
+            }
+          ],
+          "output": 40
+        }
+      }
+    }
+  }
+}

@@ -1,12 +1,14 @@
 # Datasets and evaluation
 
-This document specifies the four-domain extension and its training/evaluation records. Existing data/prompts.json is the immutable legacy v1 suite until deliberately versioned. The new domain suite and training data are not yet implemented.
+This document specifies the paired pilot and records the earlier four-domain extension and training proposal. The legacy suite remains in `data/prompts.json`. The final paired evaluation and training datasets remain to be authored.
 
 ## Dataset versions and counts
 
 | Suite | Content | Initial target |
 | --- | --- | --- |
 | legacy-v1 | Existing 20 prompts across original five categories | 240 local trials for 2 models x 2 quantizations x 3 repeats |
+| paired-pilot-v1 | Seven direct tasks and five agentic Python tasks | 12 distinct tasks, 36 attempts for one pass by the three local models, up to 24 additional attempts if both cloud providers run one pilot pass |
+| paired-evaluation-v1 (proposed) | New tasks across all direct categories and all six agent skills | 60–80 distinct tasks, 540–720 local attempts at three repeats. Both cloud providers target one pass before matched repeats. |
 | domains-v2-pilot | Two evaluation tasks per domain | 16 attempts at one condition and two repeats |
 | domains-v2 | Coding, document questions, forensics, general questions | 10 tasks/domain = 40; 480 local trials for 2 x 2 x 3 |
 | domain-training-pilot | Separate training examples per domain | Proposed 100-300 checked examples/domain |
@@ -14,6 +16,17 @@ This document specifies the four-domain extension and its training/evaluation re
 | domain-test | Frozen held-out final tasks | Never used to select prompts/hyperparameters |
 
 These are design targets, not completed records or guarantees of statistical sufficiency. The training pilot may use fewer examples to debug before any scientific run.
+
+## Paired pilot v1
+
+- [Task packet](../data/pilot_v1/tasks.json) contains model-facing prompts and five small standard-library Python workspaces. Each item has a stable ID and its own synthetic source group.
+- [Scoring packet](../data/pilot_v1/scoring.json) contains evaluator-only checks and failure criteria. The pilot uses one combined code-understanding and refactoring task. Give those skills separate items in the final suite.
+
+For direct tasks, send the same prompt text to all five candidates under the same harness rules. For each agent attempt, provision a fresh workspace with only that item's `workspace_files`. Give every backend identical file and test tools. Keep the scoring packet, other workspaces, network access and provider credentials outside the worker. Run hidden checks afterward against a separate copy. Meter the agent's own test runs as part of the task. Record independent grading runs outside that task window. Cloud provider calls travel through the coordinator, which sends only the permitted task text and tool results.
+
+Pilot defaults are one 8,192-token active context limit across both tracks, 90 seconds for a direct task, and 10 minutes for an agent task. The shared harness should reserve room for output, handle context exhaustion consistently, and record any truncation, native token counts, timeout and tool limits. Verify context and placement in Ollama, including Qwen's CPU/GPU split. Freeze the limits after the pilot, keeping equal rules across the compared models. Native tokenizers and reasoning settings can differ, so record them with each condition.
+
+Grade the email as adequate when it needs at most minor wording edits and contains the required facts and request. Code adequacy requires the defined checks and no critical regressions. Grade writing, code quality, and evidence against their own criteria, with each category reported separately. Hide model labels for subjective review and use a mentor-scored overlap when available. The task packet and scoring key are pilot drafts. Review the ground truth and checker behavior before using them to calibrate the study, then use independent source groups for the held-out evaluation.
 
 ## Sources and permissions
 

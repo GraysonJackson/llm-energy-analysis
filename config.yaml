@@ -7,7 +7,7 @@
 
 # Shelly Smart Plug Settings
 shelly:
-  ip_address: "192.168.1.100"  # Change to your Shelly plug's IP
+  ip_address: null  # Set SHELLY_IP in the ignored .env file
   polling_interval: 1.0  # seconds between power readings
   timeout: 5  # HTTP request timeout in seconds
 
@@ -15,9 +15,9 @@ shelly:
 ollama:
   host: "http://localhost:11434"
   models:
-    - "llama3"
-    - "llama3:70b"
-    - "mistral"
+    - "gemma4:12b-it-q4_K_M"  # First local candidate for the RTX 5060 Ti
+    - "gpt-oss:20b"
+    - "qwen3.8:27b"  # Record CPU/GPU placement for this build
   timeout: 300  # Maximum generation time in seconds
   temperature: 0.7
   top_p: 0.9
@@ -25,7 +25,7 @@ ollama:
 # Cloud API Settings
 cloud:
   openai:
-    enabled: true
+    enabled: false
     models:
       - "gpt-4"
       - "gpt-3.5-turbo"
@@ -33,7 +33,7 @@ cloud:
     temperature: 0.7
   
   anthropic:
-    enabled: true
+    enabled: false
     models:
       - "claude-3-opus-20240229"
       - "claude-3-sonnet-20240229"

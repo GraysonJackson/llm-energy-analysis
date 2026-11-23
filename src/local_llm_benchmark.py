@@ -44,7 +44,7 @@ class LocalLLMBenchmark:
         self.timeout = timeout
         
         # Set Ollama host
-        ollama.Client(host=host)
+        self.client = ollama.Client(host=host, timeout=timeout)
         
         logger.info(f"LocalLLMBenchmark initialized with host: {host}")
     
@@ -56,7 +56,7 @@ class LocalLLMBenchmark:
             True if Ollama is available, False otherwise
         """
         try:
-            models = ollama.list()
+            models = self.client.list()
             logger.info(f"Ollama connection successful. Available models: {len(models['models'])}")
             return True
         except Exception as e:
@@ -71,9 +71,9 @@ class LocalLLMBenchmark:
             List of model names
         """
         try:
-            response = ollama.list()
-            models = [model['name'] for model in response['models']]
-            return models
+            response = self.client.list()
+            names = [model.get('model') or model.get('name') for model in response['models']]
+            return [name for name in names if name]
         except Exception as e:
             logger.error(f"Failed to list models: {e}")
             return []
@@ -119,7 +119,7 @@ class LocalLLMBenchmark:
             token_count = 0
             first_token_time = None
             
-            stream = ollama.generate(
+            stream = self.client.generate(
                 model=model,
                 prompt=prompt,
                 options={

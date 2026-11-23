@@ -6,9 +6,9 @@ Working application title: **Energy and Privacy Tradeoffs in Local Language Mode
 
 ## Main question
 
-How do model size, quantization, hardware configuration, and task-specific training affect the energy required to produce useful local AI responses while keeping prompts and outputs under local control?
+What are the operational electricity and privacy tradeoffs of completing the same tasks with AI on a local workstation or through cloud AI services, at comparable task quality?
 
-The motivation is concern about data-center resources and interest in retaining control of prompts and outputs. This study measures operational electricity and usefulness. It does not assume local AI is always more efficient or measure water use, manufacturing emissions or a complete environmental footprint.
+The study measures workstation electricity, evaluates task quality and latency, and reviews local and provider data handling. Cloud server electricity depends on available evidence for the selected endpoints. Model size, quantization, hardware, and training are secondary questions in the expanded proposal.
 
 ## Research questions
 
@@ -22,7 +22,20 @@ The motivation is concern about data-center resources and interest in retaining 
 
 The proposed [privacy protocol](privacy_protocol.md) documents data paths, cloud fallback, network-blocked functional tests and bounded egress observations. Privacy is a deployment property, not a fabricated numeric axis. Different local/cloud models cannot isolate a causal energy cost for privacy.
 
-## Stages
+## Local and cloud comparison
+
+Decisions recorded November 22, 2026. The comparison uses Gemma 4 12B, GPT-OSS 20B, and Qwen 3.8 27B on the RTX 5060 Ti workstation. The two cloud candidates are GPT-6.2 Sol and Claude Sonnet 5.5. Target every task on both providers within a $10 USD research API spending cap per provider.
+
+- **Direct answers:** Standalone coding, email and workplace writing, document Q&A, summarization, structured extraction, general reasoning, and synthetic defensive log analysis. Use public or authored synthetic text, with a mix of difficulty levels.
+- **Agentic coding:** Primarily Python tasks covering bug fixes, features, tests, code understanding, refactoring, and setup. Each model starts from the same repo snapshot in a fresh workspace with the same offline tools and limits.
+- **Fair comparison:** Pair results by task ID and give each model the same task and starting materials within its track. Use one shared context limit and record CPU/GPU placement. Report scores by category and track. Score runnable coding tasks against hidden tests and use task-specific rubrics for subjective work. Review a sample with the mentor where possible.
+- **Measurement:** Record no-model workstation idle first. The warm-run comparison also uses matched idle baselines. Meter the workstation for both local and cloud modes, including tool and test execution. Report pass rate, time to completion, and energy per adequate task with failed attempts included in the energy total. Research server energy separately.
+- **Scale:** Begin with the 12 paired pilot tasks. Target 60–80 distinct evaluation tasks and three local repetitions. Freeze final tasks and scoring rules after the pilot. Give both cloud providers one pass across all tasks first. Use remaining budget for repeats on a preselected, category-balanced subset shared by both providers.
+- **Privacy:** Compare observed local data paths and documented first-party API data handling in the main analysis. Include a separate appendix on consumer ChatGPT and Claude privacy settings and policies.
+
+The [methodology](methodology.md) governs energy measurements and records the cloud evidence search. The [privacy protocol](privacy_protocol.md) governs data-flow observations and provider research. See [the pilot instructions](datasets_and_evaluation.md#paired-pilot-v1) for the draft tasks, scoring keys, and provisional run limits. Pilot validation will inform the final time and context limits.
+
+## Earlier proposal stages
 
 | Stage | Scope | Status |
 | --- | --- | --- |
@@ -37,7 +50,7 @@ The proposed [privacy protocol](privacy_protocol.md) documents data paths, cloud
 
 The 240-trial and 480-trial suites are different dataset versions. Their counts are not interchangeable. The private application drafts reflect the staged scope; student and mentor must finalize them before submission.
 
-## Four domains
+## Four domains in the earlier proposal
 
 Student priority: coding, general questions, technical documentation, then digital forensics. Representative uses are small programs, general questions and source-grounded implementation guides.
 

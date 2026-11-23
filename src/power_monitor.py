@@ -8,8 +8,12 @@ It connects via REST API to measure wattage and calculate energy consumption.
 import requests
 import time
 import logging
+import math
+import os
+from pathlib import Path
 from typing import Optional, Dict, List
 from datetime import datetime
+from dotenv import dotenv_values
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +28,15 @@ class PowerMonitor:
     - Calculate total energy used
     - Export measurement data
     """
+
+    @classmethod
+    def from_config(cls, settings):
+        env_path = Path(__file__).resolve().parent.parent / '.env'
+        host = (os.getenv('SHELLY_IP') or dotenv_values(env_path).get('SHELLY_IP')
+                or settings.get('ip_address') or '').strip()
+        if not host:
+            raise ValueError('Set SHELLY_IP in the repository .env file')
+        return cls(host, settings.get('polling_interval', 1.0), settings.get('timeout', 5))
     
     def __init__(self, ip_address: str, polling_interval: float = 1.0, timeout: int = 5):
         """
@@ -38,6 +51,7 @@ class PowerMonitor:
         self.polling_interval = polling_interval
         self.timeout = timeout
         self.base_url = f"http://{ip_address}"
+        self._power_endpoint = None
         
         # Measurement state
         self.is_monitoring = False
@@ -53,17 +67,7 @@ class PowerMonitor:
         Returns:
             True if connection successful, False otherwise
         """
-        try:
-            response = requests.get(
-                f"{self.base_url}/status",
-                timeout=self.timeout
-            )
-            response.raise_for_status()
-            logger.info("Shelly plug connection successful")
-            return True
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Failed to connect to Shelly plug: {e}")
-            return False
+        return self.get_current_power() is not None
     
     def get_current_power(self) -> Optional[float]:
         """
@@ -72,32 +76,32 @@ class PowerMonitor:
         Returns:
             Power in watts, or None if reading failed
         """
-        try:
-            response = requests.get(
-                f"{self.base_url}/status",
-                timeout=self.timeout
-            )
-            response.raise_for_status()
-            data = response.json()
-            
-            # Shelly plug returns power in watts under 'meters' array
-            # Different Shelly models may have different response structures
-            if 'meters' in data and len(data['meters']) > 0:
-                power = data['meters'][0]['power']
-            elif 'apower' in data:  # Some models use 'apower' (active power)
-                power = data['apower']
-            else:
-                logger.error(f"Unexpected response format: {data}")
-                return None
-            
-            return float(power)
-        
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Failed to read power: {e}")
-            return None
-        except (KeyError, IndexError, ValueError) as e:
-            logger.error(f"Failed to parse power data: {e}")
-            return None
+        endpoints = (self._power_endpoint,) if self._power_endpoint else (
+            '/rpc/Switch.GetStatus?id=0', '/status')
+        failures = []
+        for endpoint in endpoints:
+            try:
+                response = requests.get(self.base_url + endpoint, timeout=self.timeout,
+                                        allow_redirects=False)
+                if response.status_code != 200:
+                    failures.append(f'{endpoint}: HTTP {response.status_code}')
+                    if response.status_code in (401, 403):
+                        break
+                    continue
+                data = response.json()
+                power = data['apower'] if 'apower' in data else data['meters'][0]['power']
+                if isinstance(power, bool):
+                    raise ValueError('Expected a wattage')
+                watts = float(power)
+                if not math.isfinite(watts) or watts < 0:
+                    raise ValueError('Expected finite, nonnegative watts')
+            except (requests.RequestException, KeyError, IndexError, TypeError, ValueError) as exc:
+                failures.append(f'{endpoint}: {type(exc).__name__}')
+                continue
+            self._power_endpoint = endpoint
+            return watts
+        logger.error('Shelly power reading unavailable (%s)', '; '.join(failures))
+        return None
     
     def start_monitoring(self):
         """Start a monitoring session."""
@@ -295,28 +299,20 @@ def main():
         with open('config.yaml', 'r') as f:
             config = yaml.safe_load(f)
         
-        ip_address = config['shelly']['ip_address']
-        polling_interval = config['shelly']['polling_interval']
-        timeout = config['shelly']['timeout']
+        monitor = PowerMonitor.from_config(config['shelly'])
     
     except Exception as e:
         logger.error(f"Failed to load config: {e}")
-        logger.info("Using default IP address 192.168.1.100")
-        ip_address = "192.168.1.100"
-        polling_interval = 1.0
-        timeout = 5
-    
-    # Create monitor
-    monitor = PowerMonitor(ip_address, polling_interval, timeout)
+        sys.exit(1)
     
     # Test connection
-    print(f"\nTesting connection to Shelly plug at {ip_address}...")
+    print("\nTesting connection to the configured Shelly plug...")
     if not monitor.test_connection():
         print("❌ Connection failed!")
         print("\nTroubleshooting:")
-        print("1. Check that the IP address in config.yaml is correct")
+        print("1. Check that SHELLY_IP in .env is correct")
         print("2. Ensure the Shelly plug is on the same network")
-        print("3. Try accessing http://{ip_address}/status in your browser")
+        print("3. Check the Shelly status API for your model")
         sys.exit(1)
     
     print("✅ Connection successful!")
@@ -330,6 +326,8 @@ def main():
     # Measure baseline
     print("\nMeasuring baseline for 10 seconds...")
     baseline = monitor.measure_baseline(duration=10)
+    if not baseline.get('measurement_count'):
+        sys.exit('No Shelly power samples were received during baseline measurement')
     print(f"\nBaseline Statistics:")
     print(f"  Average Power: {baseline['avg_power_w']:.2f} W")
     print(f"  Min Power: {baseline['min_power_w']:.2f} W")
