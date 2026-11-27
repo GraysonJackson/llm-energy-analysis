@@ -1,0 +1,63 @@
+{
+  "dataset_version": "receipt-variants-v1",
+  "split": "pilot",
+  "source": "Authored synthetic receipt and invoice records. Each item is a distinct source group.",
+  "items": [
+    {
+      "item_id": "R-V01",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V01",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. All amounts USD.\n\nRecord: \"Customer receipt: order code HJ-108. Original quote $52.00; final item subtotal $48.00. Sales tax $3.12. Card charge $51.12. Payment status: paid in full.\""
+    },
+    {
+      "item_id": "R-V02",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V02",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. All amounts USD.\n\nRecord: \"Invoice WB-502. Item subtotal $0.00. Tax not recorded. Final total $0.00. The invoice is explicitly marked PAID.\""
+    },
+    {
+      "item_id": "R-V03",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V03",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. All amounts CAD.\n\nRecord: \"Receipt CA-316. Item subtotal CAD 19.90. Service fee CAD 2.00. Tax detail not supplied. Total charged CAD 23.25. Payment completed.\""
+    },
+    {
+      "item_id": "R-V04",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V04",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. Use EUR. The comma is the decimal separator and the period is the thousands separator.\n\nRecord: \"Invoice FR-029. Sous-total des articles : 1.234,50 €. TVA : 246,90 €. Total : 1.481,40 €. Payment status: paid.\""
+    },
+    {
+      "item_id": "R-V05",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V05",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. Use USD.\n\nRecord: \"Checkout record PK-670. A provisional authorization hold of $80.00 was placed. Final invoice total is $74.20. The item subtotal was not shown. The tax line explicitly says $0.00. Payment is pending and no charge has been captured.\""
+    },
+    {
+      "item_id": "R-V06",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V06",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. All amounts GBP.\n\nRecord: \"Open invoice GB-014. Item subtotal £24.90. Tax £4.98. No final invoice total is shown. Payment status: unpaid.\""
+    },
+    {
+      "item_id": "R-V07",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V07",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. Use the billed currency and its amounts.\n\nRecord: \"Payment record EU-815. Billing currency EUR. Billed item subtotal EUR 32.00, billed tax EUR 6.40, billed total EUR 38.40. For reference only, estimated card conversion is USD 41.12. Collection settled and the order is marked paid.\""
+    },
+    {
+      "item_id": "R-V08",
+      "track": "direct",
+      "domain": "structured_extraction",
+      "source_group_id": "R-V08",
+      "prompt": "Return a JSON object with exactly these keys: order_id, currency, subtotal_cents, tax_cents, total_cents, paid. Use integer cents for amounts, a JSON boolean for paid, and null for absent values. Do not derive an amount that is absent. Return only valid JSON. All amounts USD.\n\nRecord: \"Draft bill US-390. Payment status: unpaid. Both the item subtotal and final total are blank. Tax is explicitly listed as $0.00. The customer's previous order was $15.75 and is unrelated to this bill.\""
+    }
+  ]
+}

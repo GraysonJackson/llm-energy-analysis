@@ -1,0 +1,71 @@
+{
+  "dataset_version": "receipt-variants-v1",
+  "scorer_version": "strict-receipt-json-v1",
+  "visibility": "Evaluator only. Do not send this file to a model.",
+  "expected_by_task": {
+    "R-V01": {
+      "order_id": "HJ-108",
+      "currency": "USD",
+      "subtotal_cents": 4800,
+      "tax_cents": 312,
+      "total_cents": 5112,
+      "paid": true
+    },
+    "R-V02": {
+      "order_id": "WB-502",
+      "currency": "USD",
+      "subtotal_cents": 0,
+      "tax_cents": null,
+      "total_cents": 0,
+      "paid": true
+    },
+    "R-V03": {
+      "order_id": "CA-316",
+      "currency": "CAD",
+      "subtotal_cents": 1990,
+      "tax_cents": null,
+      "total_cents": 2325,
+      "paid": true
+    },
+    "R-V04": {
+      "order_id": "FR-029",
+      "currency": "EUR",
+      "subtotal_cents": 123450,
+      "tax_cents": 24690,
+      "total_cents": 148140,
+      "paid": true
+    },
+    "R-V05": {
+      "order_id": "PK-670",
+      "currency": "USD",
+      "subtotal_cents": null,
+      "tax_cents": 0,
+      "total_cents": 7420,
+      "paid": false
+    },
+    "R-V06": {
+      "order_id": "GB-014",
+      "currency": "GBP",
+      "subtotal_cents": 2490,
+      "tax_cents": 498,
+      "total_cents": null,
+      "paid": false
+    },
+    "R-V07": {
+      "order_id": "EU-815",
+      "currency": "EUR",
+      "subtotal_cents": 3200,
+      "tax_cents": 640,
+      "total_cents": 3840,
+      "paid": true
+    },
+    "R-V08": {
+      "order_id": "US-390",
+      "currency": "USD",
+      "subtotal_cents": null,
+      "tax_cents": 0,
+      "total_cents": null,
+      "paid": false
+    }
+  }
+}

@@ -24,14 +24,14 @@ The proposed [privacy protocol](privacy_protocol.md) documents data paths, cloud
 
 ## Local and cloud comparison
 
-Decisions recorded November 22, 2026. The comparison uses Gemma 4 12B, GPT-OSS 20B, and Qwen 3.8 27B on the RTX 5060 Ti workstation. The two cloud candidates are GPT-6.2 Sol and Claude Sonnet 5.5. Target every task on both providers within a $10 USD research API spending cap per provider.
+Decisions updated November 25, 2026. The comparison uses Gemma 4 12B, GPT-OSS 20B, and Qwen 3.8 27B on the RTX 5060 Ti workstation. The cloud endpoints are GPT-5.4 on OpenAI and Gemini 4 Neon on the Gemini Developer API. Target every task on both providers within spending caps of $5 USD for OpenAI and $10 USD for Gemini. Track provider credits and the OpenAI data-sharing incentive separately from list-price cost.
 
 - **Direct answers:** Standalone coding, email and workplace writing, document Q&A, summarization, structured extraction, general reasoning, and synthetic defensive log analysis. Use public or authored synthetic text, with a mix of difficulty levels.
 - **Agentic coding:** Primarily Python tasks covering bug fixes, features, tests, code understanding, refactoring, and setup. Each model starts from the same repo snapshot in a fresh workspace with the same offline tools and limits.
 - **Fair comparison:** Pair results by task ID and give each model the same task and starting materials within its track. Use one shared context limit and record CPU/GPU placement. Report scores by category and track. Score runnable coding tasks against hidden tests and use task-specific rubrics for subjective work. Review a sample with the mentor where possible.
 - **Measurement:** Record no-model workstation idle first. The warm-run comparison also uses matched idle baselines. Meter the workstation for both local and cloud modes, including tool and test execution. Report pass rate, time to completion, and energy per adequate task with failed attempts included in the energy total. Research server energy separately.
 - **Scale:** Begin with the 12 paired pilot tasks. Target 60–80 distinct evaluation tasks and three local repetitions. Freeze final tasks and scoring rules after the pilot. Give both cloud providers one pass across all tasks first. Use remaining budget for repeats on a preselected, category-balanced subset shared by both providers.
-- **Privacy:** Compare observed local data paths and documented first-party API data handling in the main analysis. Include a separate appendix on consumer ChatGPT and Claude privacy settings and policies.
+- **Privacy:** Compare observed local data paths and documented first-party API data handling in the main analysis, including the OpenAI project's data-sharing opt-in. Include a separate appendix on consumer ChatGPT and Gemini privacy settings and policies.
 
 The [methodology](methodology.md) governs energy measurements and records the cloud evidence search. The [privacy protocol](privacy_protocol.md) governs data-flow observations and provider research. See [the pilot instructions](datasets_and_evaluation.md#paired-pilot-v1) for the draft tasks, scoring keys, and provisional run limits. Pilot validation will inform the final time and context limits.
 
